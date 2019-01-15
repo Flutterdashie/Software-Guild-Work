@@ -10,6 +10,7 @@ namespace HelloGuild
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Hello, Guild!");
         }
     }
 }
