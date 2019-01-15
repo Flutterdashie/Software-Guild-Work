@@ -10,6 +10,7 @@ namespace HelloGuild
     {
         static void Main(string[] args)
         {
+            //this is to test the Jira integration.
             Console.WriteLine("Hello, Guild!");
         }
     }
