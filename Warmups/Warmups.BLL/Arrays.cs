@@ -38,7 +38,12 @@ namespace Warmups.BLL
         
         public int Sum(int[] numbers)
         {
-            throw new NotImplementedException();
+            int sum = 0;
+            foreach (int i in numbers)
+            {
+                sum += i;
+            }
+            return sum;
         }
         
         public int[] RotateLeft(int[] numbers)
@@ -63,7 +68,14 @@ namespace Warmups.BLL
         
         public bool HasEven(int[] numbers)
         {
-            throw new NotImplementedException();
+            foreach (int i in numbers)
+            {
+                if (i % 2 == 0)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         
         public int[] KeepLast(int[] numbers)

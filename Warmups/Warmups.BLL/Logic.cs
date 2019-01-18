@@ -85,32 +85,38 @@ namespace Warmups.BLL
         
         public bool SpecialEleven(int n)
         {
-            throw new NotImplementedException();
+            int mod11 = n % 11;
+            return (mod11 == 0 || mod11 == 1);
         }
         
         public bool Mod20(int n)
         {
-            throw new NotImplementedException();
+            int mod20 = n % 20;
+            return (mod20 == 1 || mod20 == 2);
         }
         
         public bool Mod35(int n)
         {
-            throw new NotImplementedException();
+            return (n % 3 == 0 ^ n % 5 == 0);
         }
         
         public bool AnswerCell(bool isMorning, bool isMom, bool isAsleep)
         {
-            throw new NotImplementedException();
+            return (!isAsleep && (!(isMorning && !isMom)));
         }
         
         public bool TwoIsOne(int a, int b, int c)
         {
-            throw new NotImplementedException();
+            int sumAB = a + b;
+            int sumBC = b + c;
+            int sumAC = a + c;
+            return (sumAB == c || sumBC == a || sumAC == b);
         }
         
         public bool AreInOrder(int a, int b, int c, bool bOk)
         {
-            throw new NotImplementedException();
+            bool bTest = (b > a || bOk);
+            return (c > b && bTest);
         }
         
         public bool InOrderEqual(int a, int b, int c, bool equalOk)
@@ -120,7 +126,23 @@ namespace Warmups.BLL
         
         public bool LastDigit(int a, int b, int c)
         {
-            throw new NotImplementedException();
+            int aLast = a % 10;
+            int bLast = b % 10;
+            int cLast = c % 10;
+            int matchCount = 0;
+            if (aLast == bLast)
+            {
+                matchCount++;
+            }
+            if (bLast == cLast)
+            {
+                matchCount++;
+            }
+            if(aLast == cLast)
+            {
+                matchCount++;
+            }
+            return (matchCount > 0);
         }
         
         public int RollDice(int die1, int die2, bool noDoubles)
