@@ -21,52 +21,73 @@ namespace Warmups.BLL
         }
 
         public string InsertWord(string container, string word) {
-            throw new NotImplementedException();
+            string firstHalf = container.Substring(0, 2);
+            string lastHalf = container.Substring(2, 2);
+            return $"{firstHalf}{word}{lastHalf}";
         }
 
         public string MultipleEndings(string str)
         {
-            throw new NotImplementedException();
+            string ending = str.Substring(str.Length - 2);
+            return $"{ending}{ending}{ending}";
         }
 
         public string FirstHalf(string str)
         {
-            throw new NotImplementedException();
+            return str.Substring(0, str.Length / 2);
+
         }
 
         public string TrimOne(string str)
         {
-            throw new NotImplementedException();
+            return str.Substring(1, str.Length - 2);
         }
 
         public string LongInMiddle(string a, string b)
         {
-            throw new NotImplementedException();
+            if (a.Length > b.Length)
+            {
+                return $"{b}{a}{b}";
+            }
+            else
+            {
+                return $"{a}{b}{a}";
+            }
         }
 
         public string RotateLeft2(string str)
         {
-            throw new NotImplementedException();
+            string result = str + str.Substring(0, 2);
+            result = result.Substring(2, str.Length);
+            return result;
         }
 
         public string RotateRight2(string str)
         {
-            throw new NotImplementedException();
+            string result = str.Substring(str.Length - 2, 2) + str;
+            result = result.Substring(0, str.Length);
+            return result;
         }
 
         public string TakeOne(string str, bool fromFront)
         {
-            throw new NotImplementedException();
+            if (fromFront)
+            {
+                return str.Substring(0, 1);
+            } else
+            {
+                return str.Substring(str.Length - 1, 1);
+            }
         }
 
         public string MiddleTwo(string str)
         {
-            throw new NotImplementedException();
+            return str.Substring(str.Length / 2 - 1, 2);
         }
 
         public bool EndsWithLy(string str)
         {
-            throw new NotImplementedException();
+            return (str.EndsWith("ly"));
         }
 
         public string FrontAndBack(string str, int n)

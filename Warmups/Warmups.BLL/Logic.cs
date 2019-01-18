@@ -11,17 +11,35 @@ namespace Warmups.BLL
 
         public bool GreatParty(int cigars, bool isWeekend)
         {
-            throw new NotImplementedException();
+            return (cigars >= 40) && (cigars <= 60 || isWeekend);
         }
         
         public int CanHazTable(int yourStyle, int dateStyle)
         {
-            throw new NotImplementedException();
+            if (yourStyle <= 2 || dateStyle <= 2)
+            {
+                return 0;
+            }
+            else if(yourStyle >=8 || dateStyle >= 8)
+            {
+                return 2;
+            }
+            else
+            {
+                return 1;
+            }
         }
 
         public bool PlayOutside(int temp, bool isSummer)
         {
-            throw new NotImplementedException();
+            if (temp >= 60)
+            {
+                return (temp <= 90 || (temp <= 100 && isSummer));
+            }
+            else
+            {
+                return false;
+            }
         }
         
         public int CaughtSpeeding(int speed, bool isBirthday)
@@ -31,7 +49,15 @@ namespace Warmups.BLL
         
         public int SkipSum(int a, int b)
         {
-            throw new NotImplementedException();
+            int sum = a + b;
+            if(sum >= 10 && sum <=19 )
+            {
+                return 20;
+            }
+            else
+            {
+                return sum;
+            }
         }
         
         public string AlarmClock(int day, bool vacation)
@@ -41,7 +67,15 @@ namespace Warmups.BLL
         
         public bool LoveSix(int a, int b)
         {
-            throw new NotImplementedException();
+            if (a == 6 || b == 6)
+            {
+                return true;
+            }
+            if (a + b == 6 || Math.Abs(a - b) == 6)
+            {
+                return true;
+            }
+            return false;
         }
         
         public bool InRange(int n, bool outsideMode)
