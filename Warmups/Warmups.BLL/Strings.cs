@@ -12,12 +12,12 @@ namespace Warmups.BLL
 
         public string Abba(string a, string b)
         {
-            throw new NotImplementedException();
+            return $"{a}{b}{b}{a}";
         }
 
         public string MakeTags(string tag, string content)
         {
-            throw new NotImplementedException();
+            return $"<{tag}>{content}</{tag}>";
         }
 
         public string InsertWord(string container, string word) {

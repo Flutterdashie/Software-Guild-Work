@@ -7,16 +7,28 @@ namespace Warmups.BLL
 
         public bool FirstLast6(int[] numbers)
         {
-            throw new NotImplementedException();
+            return ((numbers[0] == 6) || (numbers[numbers.Length - 1] == 6));
         }
 
         public bool SameFirstLast(int[] numbers)
         {
-            throw new NotImplementedException();
+            if(numbers.Length < 1)
+            {
+                return false;
+            }
+            return numbers[0] == numbers[numbers.Length - 1];
         }
         public int[] MakePi(int n)
         {
-            throw new NotImplementedException();
+            int[] piArray = { 3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9 };
+            int[] result = new int[n];
+            for (int i = 0; i < result.Length; i++)
+            {
+                result[i] = piArray[i];
+            }
+            //I originally was going to have it parse Math.PI into a bunch of ints, but this works for now.
+
+            return result;
         }
         
         public bool CommonEnd(int[] a, int[] b)
