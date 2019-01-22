@@ -97,9 +97,11 @@ namespace RockPaperScissors
                 Console.WriteLine("We tied!");
                 return 0;
             }
-            if (player == 1)
+            ValidMoves computerMove = (ValidMoves)computer;
+            ValidMoves playerMove = (ValidMoves)player;
+            if (playerMove == ValidMoves.Rock)
             {
-                if (computer == 2)
+                if (computerMove == ValidMoves.Paper)
                 {
                     Console.WriteLine("My paper beats your rock!");
                     return 2;
@@ -109,9 +111,9 @@ namespace RockPaperScissors
                     return 1;
                 }
             }
-            if (player == 2)
+            if (playerMove == ValidMoves.Paper)
             {
-                if (computer == 1)
+                if (computerMove == ValidMoves.Rock)
                 {
                     Console.WriteLine("Your paper beats my rock!");
                     return 1;
@@ -122,9 +124,9 @@ namespace RockPaperScissors
                     return 2;
                 }
             }
-            if (player == 3)
+            if (playerMove == ValidMoves.Scissors)
             {
-                if (computer == 1)
+                if (computerMove == ValidMoves.Rock)
                 {
                     Console.WriteLine("My rock beats your scissors!");
                     return 2;
@@ -209,5 +211,12 @@ namespace RockPaperScissors
             }
             Console.WriteLine();
         }
+    }
+
+    public enum ValidMoves
+    {
+        Rock = 1,
+        Paper,
+        Scissors
     }
 }
