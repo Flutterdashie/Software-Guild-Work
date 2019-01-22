@@ -72,13 +72,13 @@ namespace RockPaperScissors
             if (!int.TryParse(playerInput, out playerChoice))
             {
                 Console.WriteLine("I didn\'t find a number. Picking for you...");
-                playerChoice = r.Next(1, 3);
+                playerChoice = r.Next(1, 4);
             } else if(playerChoice < 1 || playerChoice > 3)
             {
                 Console.WriteLine("That\'s not a valid choice. Picking for you...");
-                playerChoice = r.Next(1, 3);
+                playerChoice = r.Next(1, 4);
             }
-            int compChoice = r.Next(1, 3);
+            int compChoice = r.Next(1, 4);
             return WhoWon(playerChoice, compChoice);
         }
 
