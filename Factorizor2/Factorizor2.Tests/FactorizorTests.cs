@@ -21,8 +21,7 @@ namespace Factorizor2.Tests
         public void PerfectTest(int target, bool perfectResult)
         {
             bool isPerfect = PerfectChecker.IsPerfect(target);
-            bool testResult = (isPerfect == perfectResult);
-            Assert.IsTrue(testResult);
+            Assert.AreEqual(isPerfect, perfectResult);
         }
         
         [TestCase(2,true)]
@@ -38,8 +37,7 @@ namespace Factorizor2.Tests
         public void PrimeTest(int target, bool primeResult)
         {
             bool isPrime = PrimeChecker.IsPrime(target);
-            bool testResult = (isPrime == primeResult);
-            Assert.IsTrue(testResult);
+            Assert.AreEqual(isPrime,primeResult);
         }
 
         [TestCase(1)] //The factor list does not include the target number itself for calculation purposes
