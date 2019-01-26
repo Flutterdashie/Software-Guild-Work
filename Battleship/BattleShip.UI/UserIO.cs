@@ -139,33 +139,51 @@ namespace BattleShip.UI
         public static ShipDirection GetDirection()
         {
             ConsoleKeyInfo input;
-            char direction;
+            ShipDirection direction;
             do
             {
                 Console.WriteLine("Input direction(W,A,S,D)");
                 input = Console.ReadKey();
                 Console.WriteLine();
-                direction = input.KeyChar;
-                switch (direction)
+                if(TryParseDirection(input.KeyChar,out direction))
                 {
-                    case 'w':
-                    case 'W':
-                        return ShipDirection.Up;
-                    case 'd':
-                    case 'D':
-                        return ShipDirection.Right;
-                    case 's':
-                    case 'S':
-                        return ShipDirection.Down;
-                    case 'a':
-                    case 'A':
-                        return ShipDirection.Left;
-                    default:
-                        Console.WriteLine("Invalid input.");
-                        continue;
+                    //Valid!
+                    return direction;
+                } else
+                {
+                    Console.WriteLine("Invalid input.");
+                    continue;
                 }
+                
             } while (true);
 
+        }
+
+        public static bool TryParseDirection(char input, out ShipDirection direction)
+        {
+            direction = ShipDirection.Down;
+            switch (input)
+            {
+                case 'w':
+                case 'W':
+                    direction = ShipDirection.Up;
+                    return true;
+                case 'd':
+                case 'D':
+                    direction = ShipDirection.Right;
+                    return true;
+                case 's':
+                case 'S':
+                    direction = ShipDirection.Down;
+                    return true;
+                case 'a':
+                case 'A':
+                    direction = ShipDirection.Left;
+                    return true;
+                default:
+                    //failed
+                    return false;
+            }
         }
 
         public static bool InterpretTurnResult(FireShotResponse response)
