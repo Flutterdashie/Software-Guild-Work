@@ -13,6 +13,7 @@ namespace BattleShip.UI
     {
         public static string GetStringFromUser(string prompt)
         {
+            Console.ForegroundColor = ConsoleColor.White;
             while (true)
             {
                 Console.WriteLine(prompt);
