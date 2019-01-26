@@ -13,17 +13,16 @@ namespace BattleShip.UI
 {
     public class Player
     {
-        internal static object Board;
-        public Board board = new Board();
-        public string name { get; set; }
+        private Board board = new Board();
+        public string Name { get; set; }
 
         public Player()
         {
-            name = UserIO.SetName();
+            Name = UserIO.SetName();
             ShipSetup();
         }
 
-        public Board playerBoard
+        public Board Board
         {
             get
             {
@@ -31,9 +30,15 @@ namespace BattleShip.UI
             }
         }
 
+        private void ResetBoard()
+        {
+            board = new Board();
+        }
+
         public void ShipSetup()
         {
-            Console.WriteLine($"Alright {name}, lets setup your ships.");
+            ResetBoard();
+            Console.WriteLine($"Alright {Name}, let's setup your ships.");
 
             for (int i = 0; i < 5; i++)
             {
@@ -51,7 +56,7 @@ namespace BattleShip.UI
                 {
                     case ShipPlacement.NotEnoughSpace:
                         i--;
-                        Console.WriteLine("Not enough Space to place a ship there!");
+                        Console.WriteLine("Not enough space to place a ship there!");
                         continue;
                     case ShipPlacement.Overlap:
                         i--;

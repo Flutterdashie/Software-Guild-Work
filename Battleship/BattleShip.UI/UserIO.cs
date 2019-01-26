@@ -25,7 +25,6 @@ namespace BattleShip.UI
             }
         }
 
-
         public static int LoopUntilChosen(string prompt, string[] options)
         {
             if (options.Length == 0)
@@ -47,9 +46,9 @@ namespace BattleShip.UI
             }
         }
 
-        public static void DrawBoard(Player playName)
+        public static void DrawBoard(Player boardOwner)
         {
-
+            Console.WriteLine($"{boardOwner.Name}'s board:");
             string Letters = "ABCDEFGHIJ";
             for (int row1 = 1; row1 <= 10; row1++) { Console.Write(row1 + " "); }
             Console.WriteLine();
