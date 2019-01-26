@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BattleShip.BLL.GameLogic;
+using BattleShip.BLL.Requests;
 
 namespace BattleShip.UI
 {
@@ -49,44 +51,122 @@ namespace BattleShip.UI
             }
         }
 
-        public static int GetIntFromUser(string prompt, int lowerBound = int.MinValue, int upperBound = int.MaxValue)
-        {
-            int output = 0;
-            string result = "";
-            bool isValid = false;
-            while (true)
-            {
-                Console.WriteLine(prompt);
-                result = Console.ReadLine();
-                isValid = int.TryParse(result, out output);
-                isValid &= output >= lowerBound;
-                isValid &= output <= upperBound;
-                if (isValid)
-                {
-                    return output;
-                }
-                Console.WriteLine("Invalid input. Ensure value can be represented by a 32-bit int.");
-            }
-        }
-
-        public static void PrintIntList(string prompt, List<int> data)
-        {
-            string delimiter = "";
-            Console.Write(prompt);
-            foreach (int val in data)
-            {
-                Console.Write(delimiter + val);
-                delimiter = ", ";
-            }
-            Console.WriteLine();
-        }
-
         public static string BoolInserter(string firstHalf, bool test, string remainder)
         {
             string output = firstHalf;
             output += test ? "" : "not ";
             output += remainder;
             return output;
+        }
+
+
+        public static void DrawBoard(Player playName)
+        {
+            string Letters = "ABCDEFGHIJ";
+            for (int row1 = 1; row1 <= 10; row1++) { Console.Write(row1 + " "); }
+            Console.WriteLine();
+            for (int x = 0; x <= 9; x++)
+            {
+                Console.Write(Letters.Substring(x, 1) + " ");
+                for (int y = 0; y <= 9; y++)
+                {
+                    // Instead of x below, get the status of each cell.
+                    Console.Write("x ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public static string SetName()
+        {
+            return GetStringFromUser("What is your name?");
+        }
+
+        public static void Continue()
+        {
+            Console.WriteLine("Press any key to continue... (Clears screen)");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        public static Coordinate GetCoord()
+        {
+            Console.Write("Input a coordinate: ");
+            string cordInput;
+            char letterCoord;
+            string numberCoord;
+            int yCoord;
+            int xCoord;
+
+            do
+            {
+                cordInput = Console.ReadLine();
+                if (cordInput.Length > 3 || cordInput.Length <= 1)
+                {
+                    Console.WriteLine("Invalid input!");
+                    continue;
+                }
+                else
+                {
+                    letterCoord = cordInput.ToUpper().ToCharArray()[0];
+                    yCoord = letterCoord - 'A' + 1;
+                    if (yCoord > 10 || yCoord < 1)
+                    {
+                        Console.WriteLine("Invalid input!");
+                        continue;
+                    }
+
+                    numberCoord = cordInput.Substring(1);
+                    if (!int.TryParse(numberCoord, out xCoord))
+                    {
+                        Console.WriteLine("Invalid input!");
+                        continue;
+                    }
+                    else
+                    {
+                        if (xCoord > 10 || xCoord < 1)
+                        {
+                            Console.WriteLine("Invalid input!");
+                            continue;
+                        }
+                    }
+                }
+                break;
+            } while (true);
+
+            return new Coordinate(yCoord, xCoord);
+        }
+
+        public static ShipDirection GetDirection()
+        {
+            ConsoleKeyInfo input;
+            char direction;
+            do
+            {
+                Console.WriteLine("Input direction(W,A,S,D)");
+                input = Console.ReadKey();
+                Console.WriteLine();
+                direction = input.KeyChar;
+                switch (direction)
+                {
+                    case 'w':
+                    case 'W':
+                        return ShipDirection.Up;
+                    case 'd':
+                    case 'D':
+                        return ShipDirection.Right;
+                    case 's':
+                    case 'S':
+                        return ShipDirection.Down;
+                    case 'a':
+                    case 'A':
+                        return ShipDirection.Left;
+                    default:
+                        Console.WriteLine("Invalid input.");
+                        continue;
+                }
+            } while (true);
+
         }
     }
 }

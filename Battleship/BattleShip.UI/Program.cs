@@ -10,6 +10,7 @@ namespace BattleShip.UI
     {
         static void Main(string[] args)
         {
+            
         }
     }
 }
