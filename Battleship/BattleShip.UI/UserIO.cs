@@ -79,50 +79,61 @@ namespace BattleShip.UI
 
         public static Coordinate GetCoord()
         {
-            Console.Write("Input a coordinate: ");
-            string cordInput;
-            char letterCoord;
-            string numberCoord;
-            int yCoord;
-            int xCoord;
+            
+            string coordInput;
+            Coordinate outputCoord;
 
             do
             {
-                cordInput = Console.ReadLine();
-                if (cordInput.Length > 3 || cordInput.Length <= 1)
+                Console.Write("Input a coordinate: ");
+                coordInput = Console.ReadLine();
+                if(!TryParseCoord(coordInput, out outputCoord))
                 {
-                    Console.WriteLine("Invalid input!");
+                    Console.WriteLine("Invalid input. Try again.");
                     continue;
+                } else
+                {
+                    if(outputCoord.XCoordinate > 10 || outputCoord.XCoordinate < 1)
+                    {
+                        Console.WriteLine("X index out of bounds. Try again.");
+                        continue;
+                    }
+                    if(outputCoord.YCoordinate > 10 || outputCoord.YCoordinate < 1)
+                    {
+                        Console.WriteLine("Y index out of bounds. Try again.");
+                        continue;
+                    }
+                    break;
+                }
+            } while (true);
+
+            return outputCoord;
+        }
+        public static bool TryParseCoord(string input, out Coordinate coordinate)
+        {
+            coordinate = new Coordinate(0, 0);
+            if (input.Length > 3 || input.Length <= 1)
+            {
+                //Invalid length
+                return false;
+            }
+            else
+            {
+                char letterCoord = input.ToUpper().ToCharArray()[0];
+                int yCoord = letterCoord - 'A' + 1;
+
+                string numberCoord = input.Substring(1);
+                if (!int.TryParse(numberCoord, out int xCoord))
+                {
+                    //Invalid numerical portion
+                    return false;
                 }
                 else
                 {
-                    letterCoord = cordInput.ToUpper().ToCharArray()[0];
-                    yCoord = letterCoord - 'A' + 1;
-                    if (yCoord > 10 || yCoord < 1)
-                    {
-                        Console.WriteLine("Invalid input!");
-                        continue;
-                    }
-
-                    numberCoord = cordInput.Substring(1);
-                    if (!int.TryParse(numberCoord, out xCoord))
-                    {
-                        Console.WriteLine("Invalid input!");
-                        continue;
-                    }
-                    else
-                    {
-                        if (xCoord > 10 || xCoord < 1)
-                        {
-                            Console.WriteLine("Invalid input!");
-                            continue;
-                        }
-                    }
+                    coordinate = new Coordinate(xCoord, yCoord);
+                    return true;
                 }
-                break;
-            } while (true);
-
-            return new Coordinate(yCoord, xCoord);
+            }
         }
 
         public static ShipDirection GetDirection()
