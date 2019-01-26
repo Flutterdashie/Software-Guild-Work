@@ -26,27 +26,6 @@ namespace BattleShip.UI
             }
         }
 
-        public static int LoopUntilChosen(string prompt, string[] options)
-        {
-            if (options.Length == 0)
-            {
-                return 0;
-            }
-            while (true)
-            {
-                string userInput = GetStringFromUser(prompt);
-                for (int i = 0; i < options.Length; i++)
-                {
-                    if (options[i] == userInput)
-                    {
-                        return i;
-                    }
-                }
-                Console.WriteLine("Invalid choice.");
-
-            }
-        }
-
         public static void DrawBoard(Player boardOwner)
         {
             Console.WriteLine($"{boardOwner.Name}'s board:");
@@ -192,5 +171,28 @@ namespace BattleShip.UI
             return validTurn;
 
         }
+
+        public static bool GetPlayAgain()
+        {
+            char userReply;
+            while (true)
+            {
+                Console.WriteLine("Would you like to play again? y/n");
+                userReply = Console.ReadKey().KeyChar;
+                switch(userReply)
+                {
+                    case 'y':
+                    case 'Y':
+                        return true;
+                    case 'n':
+                    case 'N':
+                        return false;
+                    default:
+                        Console.WriteLine("Invalid entry.");
+                        continue;
+                }
+            }
+        }
+
     }
 }
