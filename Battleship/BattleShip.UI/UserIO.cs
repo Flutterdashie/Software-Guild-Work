@@ -200,6 +200,7 @@ namespace BattleShip.UI
             {
                 Console.WriteLine("Would you like to play again? y/n");
                 userReply = Console.ReadKey().KeyChar;
+                Console.WriteLine();
                 switch (userReply)
                 {
                     case 'y':
