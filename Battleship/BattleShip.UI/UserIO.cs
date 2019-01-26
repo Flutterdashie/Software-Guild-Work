@@ -25,10 +25,6 @@ namespace BattleShip.UI
             }
         }
 
-        public static void DisplayString(string output)
-        {
-            Console.WriteLine(output);
-        }
 
         public static int LoopUntilChosen(string prompt, string[] options)
         {
@@ -51,17 +47,9 @@ namespace BattleShip.UI
             }
         }
 
-        public static string BoolInserter(string firstHalf, bool test, string remainder)
-        {
-            string output = firstHalf;
-            output += test ? "" : "not ";
-            output += remainder;
-            return output;
-        }
-
-
         public static void DrawBoard(Player playName)
         {
+
             string Letters = "ABCDEFGHIJ";
             for (int row1 = 1; row1 <= 10; row1++) { Console.Write(row1 + " "); }
             Console.WriteLine();
