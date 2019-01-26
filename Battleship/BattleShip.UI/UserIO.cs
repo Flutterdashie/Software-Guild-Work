@@ -28,17 +28,37 @@ namespace BattleShip.UI
 
         public static void DrawBoard(Player boardOwner)
         {
-            Console.WriteLine($"{boardOwner.Name}'s board:");
+            ConsoleColor oldColor = Console.ForegroundColor;
+            
+            Console.WriteLine("Your attempted shots:");
             string Letters = "ABCDEFGHIJ";
-            for (int row1 = 1; row1 <= 10; row1++) { Console.Write(row1 + " "); }
-            Console.WriteLine();
-            for (int x = 0; x <= 9; x++)
+            Console.Write("  ");
+            for (int row1 = 1; row1 <= 10; row1++)
             {
-                Console.Write(Letters.Substring(x, 1) + " ");
-                for (int y = 0; y <= 9; y++)
+                Console.Write(row1 + " ");
+            }
+            Console.WriteLine();
+            for (int xCoord = 1; xCoord <= 10; xCoord++)
+            {
+                Console.Write(Letters.Substring(xCoord - 1, 1) + " ");
+                for (int yCoord = 1; yCoord <= 10; yCoord++)
                 {
-                    // Instead of x below, get the status of each cell.
-                    Console.Write("x ");
+                    ShotHistory coordHistory = boardOwner.Board.CheckCoordinate(new Coordinate(xCoord, yCoord));
+                    switch (coordHistory)
+                    {
+                        case ShotHistory.Hit:
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write("H ");
+                            break;
+                        case ShotHistory.Miss:
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.Write("M ");
+                            break;
+                        case ShotHistory.Unknown:
+                            Console.Write("X ");
+                            break;
+                    }
+                    Console.ForegroundColor = oldColor;
                 }
                 Console.WriteLine();
             }
@@ -179,7 +199,7 @@ namespace BattleShip.UI
             {
                 Console.WriteLine("Would you like to play again? y/n");
                 userReply = Console.ReadKey().KeyChar;
-                switch(userReply)
+                switch (userReply)
                 {
                     case 'y':
                     case 'Y':

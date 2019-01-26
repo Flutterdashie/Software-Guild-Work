@@ -22,19 +22,30 @@ namespace BattleShip.UI
         public void Run()
         {
             Random rand = new Random();
-
+            bool playAgain = true;
+            Console.ForegroundColor = ConsoleColor.White;
             do
             {
                 bool playerTwoFirst = (rand.Next(0, 2) == 1);
                 HandleGame(playerTwoFirst);
-            } while (UserIO.GetPlayAgain());
+                playAgain = UserIO.GetPlayAgain();
+                if(playAgain)
+                {
+                    //Reset ships without asking for names again
+                    Player1.ShipSetup();
+                    Player2.ShipSetup();
+                    continue;
+                }
+
+            } while (playAgain);
+            Console.WriteLine("Thanks for playing! Goodbye!");
         }
 
         public void HandleGame(bool playerTwoFirst)
         {
-            Player[] players = new Player[2] { Player1, Player2 };
+            Player[] players = new Player[3] { Player1, Player2, Player1 };
             int whoseTurn = playerTwoFirst ? 1 : 0 ;
-            while (HandlePlayerTurn(players[whoseTurn]))
+            while (HandlePlayerTurn(players[whoseTurn],players[whoseTurn+1]))
             {
                 whoseTurn++;
                 whoseTurn %= 2;
@@ -44,22 +55,22 @@ namespace BattleShip.UI
 
         }
 
-        public FireShotResponse TryPlayerAttack(Player currentPlayer)
+        public FireShotResponse TryPlayerAttack(Player currentPlayer, Player enemyPlayer)
         {
             Console.WriteLine($"{currentPlayer.Name}, your turn!");
-            UserIO.DrawBoard(currentPlayer);
+            UserIO.DrawBoard(enemyPlayer);
             Console.WriteLine("Where would you like to fire?");
             Coordinate aimingAt = UserIO.GetCoord();
-            return currentPlayer.Board.FireShot(aimingAt);
+            return enemyPlayer.Board.FireShot(aimingAt);
         }
 
-        public bool HandlePlayerTurn(Player currentPlayer)
+        public bool HandlePlayerTurn(Player currentPlayer, Player enemyPlayer)
         {
             FireShotResponse turnResult;
             bool shouldGameContinue;
             do
             {
-                turnResult = TryPlayerAttack(currentPlayer);
+                turnResult = TryPlayerAttack(currentPlayer, enemyPlayer);
             } while (!UserIO.InterpretTurnResult(turnResult));
             shouldGameContinue = (turnResult.ShotStatus != ShotStatus.Victory);
             return shouldGameContinue;
