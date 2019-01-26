@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BattleShip.BLL.GameLogic;
 using BattleShip.BLL.Requests;
+using BattleShip.BLL.Responses;
 
 namespace BattleShip.UI
 {
@@ -153,6 +154,42 @@ namespace BattleShip.UI
                         continue;
                 }
             } while (true);
+
+        }
+
+        public static bool InterpretTurnResult(FireShotResponse response)
+        {
+            bool validTurn = false;
+            switch (response.ShotStatus)
+            {
+                case ShotStatus.Invalid:
+                    Console.WriteLine("Not a valid shot location! Try again.");
+                    break;
+                case ShotStatus.Duplicate:
+                    Console.WriteLine("That location has already been shot! Try again.");
+                    break;
+                case ShotStatus.Miss:
+                    Console.WriteLine("Miss! Better luck next round.");
+                    validTurn = true;
+                    break;
+                case ShotStatus.Hit:
+                    Console.WriteLine("Hit! But it isn't sunk yet!");
+                    validTurn = true;
+                    break;
+                case ShotStatus.HitAndSunk:
+                    Console.WriteLine($"Hit and sunk! That was their {response.ShipImpacted}!");
+                    validTurn = true;
+                    break;
+                case ShotStatus.Victory:
+                    Console.WriteLine($"Hit and sunk! That was their {response.ShipImpacted}!");
+                    Console.WriteLine("That was their last ship!");
+                    validTurn = true;
+                    break;
+                default:
+                    Console.WriteLine("The program encountered a serious error. Please try your turn again.");
+                    break;
+            }
+            return validTurn;
 
         }
     }
