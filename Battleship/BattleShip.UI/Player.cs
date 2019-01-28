@@ -38,11 +38,11 @@ namespace BattleShip.UI
         public void ShipSetup()
         {
             ResetBoard();
-            Console.WriteLine($"Alright {Name}, let's setup your ships.");
+            UserIO.WriteLine($"Alright {Name}, let's setup your ships.");
 
             for (int i = 0; i < 5; i++)
             {
-                Console.WriteLine($"Place your {Enum.GetName(typeof(ShipType), (ShipType)i)}.");
+                UserIO.WriteLine($"Place your {Enum.GetName(typeof(ShipType), (ShipType)i)}.");
 
                 PlaceShipRequest request = new PlaceShipRequest()
                 {
@@ -56,14 +56,14 @@ namespace BattleShip.UI
                 {
                     case ShipPlacement.NotEnoughSpace:
                         i--;
-                        Console.WriteLine("Not enough space to place a ship there!");
+                        UserIO.WriteLine("Not enough space to place a ship there!");
                         continue;
                     case ShipPlacement.Overlap:
                         i--;
-                        Console.WriteLine("This spot overlaps with another ship!");
+                        UserIO.WriteLine("This spot overlaps with another ship!");
                         break;
                     case ShipPlacement.Ok:
-                        Console.WriteLine("Ship placement works!");
+                        UserIO.WriteLine("Ship placement works!");
                         break;
                     default:
                         break;

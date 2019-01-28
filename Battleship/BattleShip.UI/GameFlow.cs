@@ -23,7 +23,7 @@ namespace BattleShip.UI
         {
             Random rand = new Random();
             bool playAgain = true;
-            Console.ForegroundColor = ConsoleColor.White;
+            UserIO.WhiteOutput();
             do
             {
                 bool playerTwoFirst = (rand.Next(0, 2) == 1);
@@ -38,7 +38,7 @@ namespace BattleShip.UI
                 }
 
             } while (playAgain);
-            Console.WriteLine("Thanks for playing! Goodbye!");
+            UserIO.WriteLine("Thanks for playing! Goodbye!");
         }
 
         public void HandleGame(bool playerTwoFirst)
@@ -51,15 +51,15 @@ namespace BattleShip.UI
                 whoseTurn %= 2;
                 UserIO.Continue();
             }
-            Console.WriteLine($"Congratulations on your victory, {players[whoseTurn].Name}!");
+            UserIO.WriteLine($"Congratulations on your victory, {players[whoseTurn].Name}!");
 
         }
 
         public FireShotResponse TryPlayerAttack(Player currentPlayer, Player enemyPlayer)
         {
-            Console.WriteLine($"{currentPlayer.Name}, your turn!");
+            UserIO.WriteLine($"{currentPlayer.Name}, your turn!");
             UserIO.DrawBoard(enemyPlayer);
-            Console.WriteLine("Where would you like to fire?");
+            UserIO.WriteLine("Where would you like to fire?");
             Coordinate aimingAt = UserIO.GetCoord();
             return enemyPlayer.Board.FireShot(aimingAt);
         }

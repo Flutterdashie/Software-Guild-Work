@@ -27,6 +27,16 @@ namespace BattleShip.UI
             }
         }
 
+        public static void WhiteOutput()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        public static void WriteLine(string output)
+        {
+            Console.WriteLine(output);
+        }
+
         public static void DrawBoard(Player boardOwner)
         {
             ConsoleColor oldColor = Console.ForegroundColor;
