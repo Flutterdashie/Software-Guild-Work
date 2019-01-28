@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BattleShip.UI
 {
-    class GameFlow
+    public class GameFlow
     {
         Player Player1;
         Player Player2;

@@ -39,16 +39,17 @@ namespace BattleShip.UI
         {
             ResetBoard();
             UserIO.WriteLine($"Alright {Name}, let's setup your ships.");
-
+            ShipType currentShip;
             for (int i = 0; i < 5; i++)
             {
-                UserIO.WriteLine($"Place your {Enum.GetName(typeof(ShipType), (ShipType)i)}.");
+                currentShip = (ShipType)i;
+                UserIO.WriteLine($"Place your {currentShip.ToString()}.");
 
                 PlaceShipRequest request = new PlaceShipRequest()
                 {
                     Coordinate = UserIO.GetCoord(),
                     Direction = UserIO.GetDirection(),
-                    ShipType = (ShipType)i
+                    ShipType = currentShip
                 };
 
                 ShipPlacement spotValidity = board.PlaceShip(request);
