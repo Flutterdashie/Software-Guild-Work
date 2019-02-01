@@ -33,6 +33,8 @@ namespace LINQ
             //Exercise20();
             //Exercise21();
             //Exercise22();
+            //Exercise23();
+            //Exercise24();
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
@@ -472,6 +474,7 @@ namespace LINQ
         /// </summary>
         static void Exercise22()
         {
+            //I could also do this by using .Distinct after selecting p.Category from all p.
             var categories = from p in DataLoader.LoadProducts()
                              group p by p.Category into cats
                              select cats.Key;
@@ -486,7 +489,17 @@ namespace LINQ
         /// </summary>
         static void Exercise23()
         {
-
+            var searchResults = from p in DataLoader.LoadProducts()
+                                where p.ProductID == 789
+                                select p;
+            if(searchResults.Count() != 0)
+            {
+                Console.WriteLine("Product 789 exists!");
+            }
+            else
+            {
+                Console.WriteLine("Product 789 does NOT exist.");
+            }
         }
 
         /// <summary>
@@ -494,7 +507,15 @@ namespace LINQ
         /// </summary>
         static void Exercise24()
         {
-
+            var categories = from p in DataLoader.LoadProducts()
+                             group p by p.Category;
+            var minStocks = from cat in categories
+                            where cat.Min(p => p.UnitsInStock) == 0
+                            select cat.Key;
+            foreach (var category in minStocks)
+            {
+                Console.WriteLine(category);
+            }
         }
 
         /// <summary>
