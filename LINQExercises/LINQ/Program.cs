@@ -41,7 +41,7 @@ namespace LINQ
             //Exercise28();
             //Exercise29();
             //Exercise30();
-            Exercise31();
+            //Exercise31();
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
@@ -280,6 +280,20 @@ namespace LINQ
 
 
         }
+
+        //static void Exercise10Alt()
+        //{
+        //    var ordersums = from c in DataLoader.LoadCustomers()
+        //                    select new
+        //                    {
+        //                        customer = c,
+        //                        orderSum = c.Orders.Sum(o => o.Total)
+        //                    };
+        //    var collection = ordersums.Where(o => o.orderSum < 500.00M).Select(c => c.customer);
+        //    PrintCustomerInformation(collection);
+        //}
+
+
 
         /// <summary>
         /// Print only the first 3 odd numbers from NumbersC
