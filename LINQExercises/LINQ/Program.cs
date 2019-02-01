@@ -11,7 +11,21 @@ namespace LINQ
         {
             //PrintAllProducts();
             //PrintAllCustomers();
-
+            //Exercise1();
+            //Exercise2();
+            //Exercise3();
+            //Exercise4();
+            //Exercise5();
+            //Exercise6();
+            //Exercise7();
+            //Exercise8();
+            //Exercise9();
+            //Exercise10();
+            //Exercise11();
+            //Exercise12();
+            //Exercise13();
+            //Exercise14();
+            Exercise15();
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
@@ -83,7 +97,8 @@ namespace LINQ
         /// </summary>
         static void Exercise1()
         {
-
+            List<Product> outOfStock = DataLoader.LoadProducts().FindAll(p => p.UnitsInStock == 0);
+            PrintProductInformation(outOfStock);
         }
 
         /// <summary>
@@ -91,7 +106,8 @@ namespace LINQ
         /// </summary>
         static void Exercise2()
         {
-
+            List<Product> inStock = DataLoader.LoadProducts().FindAll(p => p.UnitsInStock != 0);
+            PrintProductInformation(inStock.FindAll(p => p.UnitPrice > 3.00M));
         }
 
         /// <summary>
@@ -99,7 +115,8 @@ namespace LINQ
         /// </summary>
         static void Exercise3()
         {
-
+            List<Customer> customers = DataLoader.LoadCustomers().FindAll(c => c.Region == "WA");
+            PrintCustomerInformation(customers);
         }
 
         /// <summary>
@@ -107,7 +124,15 @@ namespace LINQ
         /// </summary>
         static void Exercise4()
         {
-
+            var allNames = from product in DataLoader.LoadProducts()
+                           select new
+                           {
+                               name = product.ProductName
+                           };
+            foreach (var item in allNames)
+            {
+                Console.WriteLine(item.name);
+            }
         }
 
         /// <summary>
@@ -115,7 +140,24 @@ namespace LINQ
         /// </summary>
         static void Exercise5()
         {
+            var collection = from product in DataLoader.LoadProducts()
+                         select new
+                         {
+                             name = product.ProductName,
+                             price = product.UnitPrice * 1.25M,
+                             ID = product.ProductID,
+                             category = product.Category,
+                             stock = product.UnitsInStock
+                           };
+            string line = "{0,-5} {1,-35} {2,-15} {3,6:c} {4,6}";
+            Console.WriteLine(line, "ID", "Product Name", "Category", "Unit", "Stock");
+            Console.WriteLine("==============================================================================");
 
+            foreach (var item in collection)
+            {
+                Console.WriteLine(line, item.ID, item.name, item.category,
+                    item.price, item.stock);
+            }
         }
 
         /// <summary>
@@ -123,7 +165,16 @@ namespace LINQ
         /// </summary>
         static void Exercise6()
         {
-
+            var collection = from product in DataLoader.LoadProducts()
+                             select new
+                             {
+                                 name = product.ProductName.ToUpper(),
+                                 category = product.Category.ToUpper()
+                            };
+            foreach (var item in collection)
+            {
+                Console.WriteLine(item.name + " " + item.category);
+            }
         }
 
         /// <summary>
@@ -134,7 +185,25 @@ namespace LINQ
         /// </summary>
         static void Exercise7()
         {
+            var collection = from product in DataLoader.LoadProducts()
+                             select new
+                             {
+                                 name = product.ProductName,
+                                 price = product.UnitPrice,
+                                 ID = product.ProductID,
+                                 category = product.Category,
+                                 stock = product.UnitsInStock,
+                                 ReOrder = (product.UnitsInStock < 3)
+                             };
+            string line = "{0,-5} {1,-35} {2,-15} {3,6:c} {4,6} {5,7}";
+            Console.WriteLine(line, "ID", "Product Name", "Category", "Unit", "Stock", "ReOrder");
+            Console.WriteLine("==============================================================================");
 
+            foreach (var item in collection)
+            {
+                Console.WriteLine(line, item.ID, item.name, item.category,
+                    item.price, item.stock, item.ReOrder);
+            }
         }
 
         /// <summary>
@@ -143,7 +212,25 @@ namespace LINQ
         /// </summary>
         static void Exercise8()
         {
+            var collection = from product in DataLoader.LoadProducts()
+                             select new
+                             {
+                                 name = product.ProductName,
+                                 price = product.UnitPrice,
+                                 ID = product.ProductID,
+                                 category = product.Category,
+                                 stock = product.UnitsInStock,
+                                 stockValue = product.UnitsInStock * product.UnitPrice
+                             };
+            string line = "{0,-5} {1,-35} {2,-15} {3,6:c} {4,6} {5,6:c}";
+            Console.WriteLine(line, "ID", "Product Name", "Category", "Unit", "Stock", "Stock Value");
+            Console.WriteLine("==============================================================================");
 
+            foreach (var item in collection)
+            {
+                Console.WriteLine(line, item.ID, item.name, item.category,
+                    item.price, item.stock,item.stockValue);
+            }
         }
 
         /// <summary>
@@ -151,7 +238,11 @@ namespace LINQ
         /// </summary>
         static void Exercise9()
         {
-
+            var collection = DataLoader.NumbersA.Where(i => i % 2 == 0);
+            foreach (var item in collection)
+            {
+                Console.WriteLine(item);
+            }
         }
 
         /// <summary>
@@ -159,6 +250,18 @@ namespace LINQ
         /// </summary>
         static void Exercise10()
         {
+            var ordersums = from c in DataLoader.LoadCustomers()
+            select new
+                            {
+                                customer = c,
+                                orderSum = (from o in c.Orders
+                                            select o.Total).Sum()
+                            };
+            IEnumerable<Customer> collection = from c in ordersums
+                             where c.orderSum < 500.00M
+                             select c.customer;
+            PrintCustomerInformation(collection);
+
 
         }
 
@@ -167,7 +270,13 @@ namespace LINQ
         /// </summary>
         static void Exercise11()
         {
-
+            IEnumerable<int> collection = (from i in DataLoader.NumbersC
+                                           where i % 2 == 1
+                                           select i).Take(3);
+            foreach (var item in collection)
+            {
+                Console.WriteLine(item);
+            }
         }
 
         /// <summary>
@@ -175,7 +284,11 @@ namespace LINQ
         /// </summary>
         static void Exercise12()
         {
-
+            IEnumerable<int> collection = DataLoader.NumbersB.Skip(3);
+            foreach (var item in collection)
+            {
+                Console.WriteLine(item);
+            }
         }
 
         /// <summary>
@@ -183,7 +296,20 @@ namespace LINQ
         /// </summary>
         static void Exercise13()
         {
+            var collection = from c in DataLoader.LoadCustomers()
+                             where c.Region == "WA"
+                             select new
+                             {
+                                 recent = c.Orders.OrderBy(order => order.OrderDate).Last(),
+                                 compName = c.CompanyName
 
+                             };
+            foreach (var item in collection)
+            {
+                Console.WriteLine(item.compName);
+                Console.WriteLine("\tOrder");
+                Console.WriteLine("\t{0} {1:MM-dd-yyyy} {2,10:c}", item.recent.OrderID, item.recent.OrderDate, item.recent.Total);
+            }
         }
 
         /// <summary>
@@ -191,7 +317,11 @@ namespace LINQ
         /// </summary>
         static void Exercise14()
         {
-
+            IEnumerable<int> collection = DataLoader.NumbersC.TakeWhile(i => i < 6);
+            foreach (var item in collection)
+            {
+                Console.WriteLine(item);
+            }
         }
 
         /// <summary>
@@ -199,6 +329,11 @@ namespace LINQ
         /// </summary>
         static void Exercise15()
         {
+            IEnumerable<int> collection = DataLoader.NumbersC.SkipWhile(i => !(i % 3 == 0)).Skip(1);
+            foreach (var item in collection)
+            {
+                Console.WriteLine(item);
+            }
 
         }
 
@@ -207,7 +342,7 @@ namespace LINQ
         /// </summary>
         static void Exercise16()
         {
-
+            IEnumerable<Product> collection = DataLoader.LoadProducts();
         }
 
         /// <summary>
@@ -264,8 +399,31 @@ namespace LINQ
         /// </summary>
         static void Exercise21()
         {
+            var q = from c in DataLoader.LoadCustomers()
+                    select new
+                    {
+                        CustomerName = c.CompanyName,
+                        Years = from o in c.Orders
+                                group o by o.OrderDate.Year into gYear
+                                select new
+                                {
+                                    Year = gYear.Key,
+                                    Months = from o in gYear
+                                             group o by o.OrderDate.Month into gMonth
+                                             select new
+                                             {
+                                                 Month = gMonth.Key,
+                                                 Orders = gMonth
+                                             }
+                                }
+                    };
 
+            foreach (var item in q)
+            {
+
+            }
         }
+
 
         /// <summary>
         /// Print the unique list of product categories
