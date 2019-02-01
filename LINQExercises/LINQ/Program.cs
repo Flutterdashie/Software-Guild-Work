@@ -35,6 +35,11 @@ namespace LINQ
             //Exercise22();
             //Exercise23();
             //Exercise24();
+            //Exercise25();
+            //Exercise26();
+            //Exercise27();
+            //Exercise28();
+            //Exercise29();
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
@@ -523,7 +528,15 @@ namespace LINQ
         /// </summary>
         static void Exercise25()
         {
-
+            var categories = from p in DataLoader.LoadProducts()
+                             group p by p.Category;
+            var minStocks = from cat in categories
+                            where cat.Min(p => p.UnitsInStock) != 0
+                            select cat.Key;
+            foreach (var category in minStocks)
+            {
+                Console.WriteLine(category);
+            }
         }
 
         /// <summary>
@@ -531,7 +544,8 @@ namespace LINQ
         /// </summary>
         static void Exercise26()
         {
-
+            int oddCount = DataLoader.NumbersA.Count(i => i % 2 == 1);
+            Console.WriteLine($"There are {oddCount} odd numbers in NumbersA");
         }
 
         /// <summary>
@@ -539,7 +553,16 @@ namespace LINQ
         /// </summary>
         static void Exercise27()
         {
-
+            var collection = from c in DataLoader.LoadCustomers()
+                             select new
+                             {
+                                 ID = c.CustomerID,
+                                 orderCount = c.Orders.Count()
+                             };
+            foreach (var item in collection)
+            {
+                Console.WriteLine($"ID: {item.ID} Order Count: {item.orderCount}");
+            }
         }
 
         /// <summary>
@@ -547,7 +570,17 @@ namespace LINQ
         /// </summary>
         static void Exercise28()
         {
-
+            var categories = from p in DataLoader.LoadProducts()
+                             group p by p.Category into cats
+                             select new
+                             {
+                                 cats.Key,
+                                 Count = cats.Count()
+                             };
+            foreach (var category in categories)
+            {
+                Console.WriteLine($"{category.Key} has {category.Count} items");
+            }
         }
 
         /// <summary>
@@ -555,7 +588,17 @@ namespace LINQ
         /// </summary>
         static void Exercise29()
         {
-
+            var categories = from p in DataLoader.LoadProducts()
+                             group p by p.Category into cats
+                             select new
+                             {
+                                 cats.Key,
+                                 Count = cats.Sum(p => p.UnitsInStock)
+                             };
+            foreach (var category in categories)
+            {
+                Console.WriteLine($"{category.Key} has {category.Count} items in stock");
+            }
         }
 
         /// <summary>
