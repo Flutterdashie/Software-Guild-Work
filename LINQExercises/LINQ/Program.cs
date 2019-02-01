@@ -40,6 +40,8 @@ namespace LINQ
             //Exercise27();
             //Exercise28();
             //Exercise29();
+            //Exercise30();
+            Exercise31();
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
@@ -606,7 +608,19 @@ namespace LINQ
         /// </summary>
         static void Exercise30()
         {
-
+            var categories = from p in DataLoader.LoadProducts()
+                             group p by p.Category into cats
+                             select new
+                             {
+                                 cats.Key,
+                                 lowestProduct = (from prod in cats
+                                                  orderby prod.UnitPrice
+                                                  select prod.ProductName).First()
+                             };
+            foreach (var category in categories)
+            {
+                Console.WriteLine($"{category.Key}'s cheapest item is {category.lowestProduct}");
+            }
         }
 
         /// <summary>
@@ -614,7 +628,19 @@ namespace LINQ
         /// </summary>
         static void Exercise31()
         {
-
+            var categories = from p in DataLoader.LoadProducts()
+                             group p by p.Category into cats
+                             select new
+                             {
+                                 cats.Key,
+                                 avgPrice = cats.Average(p => p.UnitPrice)
+                             };
+            var topThree = categories.OrderByDescending(c => c.avgPrice).Take(3);
+            Console.WriteLine("Top three categories and their average price:");
+            foreach (var item in topThree)
+            {
+                Console.WriteLine("{0,-15} {1,6:c}",item.Key,item.avgPrice);
+            }
         }
     }
 }
