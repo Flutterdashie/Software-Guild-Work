@@ -25,7 +25,14 @@ namespace LINQ
             //Exercise12();
             //Exercise13();
             //Exercise14();
-            Exercise15();
+            //Exercise15();
+            //Exercise16();
+            //Exercise17();
+            //Exercise18();
+            //Exercise19();
+            //Exercise20();
+            //Exercise21();
+            //Exercise22();
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
@@ -342,7 +349,8 @@ namespace LINQ
         /// </summary>
         static void Exercise16()
         {
-            IEnumerable<Product> collection = DataLoader.LoadProducts();
+            IEnumerable<Product> AlphabetProducts = DataLoader.LoadProducts().OrderBy(p => p.ProductName);
+            PrintProductInformation(AlphabetProducts);
         }
 
         /// <summary>
@@ -350,7 +358,8 @@ namespace LINQ
         /// </summary>
         static void Exercise17()
         {
-
+            IEnumerable<Product> ProductsByStock = DataLoader.LoadProducts().OrderByDescending(p => p.UnitsInStock);
+            PrintProductInformation(ProductsByStock);
         }
 
         /// <summary>
@@ -358,7 +367,11 @@ namespace LINQ
         /// </summary>
         static void Exercise18()
         {
-
+            List<Product> allProducts = DataLoader.LoadProducts();
+            IEnumerable<Product> sortedProducts = from p in allProducts
+                                           orderby p.Category, p.UnitPrice descending
+                                           select p;
+            PrintProductInformation(sortedProducts);
         }
 
         /// <summary>
@@ -366,7 +379,10 @@ namespace LINQ
         /// </summary>
         static void Exercise19()
         {
-
+            foreach(int i in DataLoader.NumbersB.Reverse())
+            {
+                Console.WriteLine(i);
+            }
         }
 
         /// <summary>
@@ -383,7 +399,22 @@ namespace LINQ
         /// </summary>
         static void Exercise20()
         {
-
+            var query = from p in DataLoader.LoadProducts()
+                        group p by p.Category into pCategories
+                        select new
+                        {
+                            CatName = pCategories.Key,
+                            Contents = pCategories
+                        };
+            foreach (var category in query)
+            {
+                Console.WriteLine(category.CatName);
+                foreach (var item in category.Contents)
+                {
+                    Console.WriteLine(item.ProductName);
+                }
+                Console.WriteLine();
+            }
         }
 
         /// <summary>
@@ -418,9 +449,20 @@ namespace LINQ
                                 }
                     };
 
-            foreach (var item in q)
+            foreach (var customer in q)
             {
-
+                Console.WriteLine(customer.CustomerName);
+                foreach (var yearGroup in customer.Years)
+                {
+                    Console.WriteLine(yearGroup.Year);
+                    foreach (var monthGroup in yearGroup.Months)
+                    {
+                        foreach (var monthsOrders in monthGroup.Orders)
+                        {
+                            Console.WriteLine("\t{0,2} - {1,8:c}",monthGroup.Month,monthsOrders.Total);
+                        }
+                    }
+                }
             }
         }
 
@@ -430,7 +472,13 @@ namespace LINQ
         /// </summary>
         static void Exercise22()
         {
-
+            var categories = from p in DataLoader.LoadProducts()
+                             group p by p.Category into cats
+                             select cats.Key;
+            foreach (string category in categories)
+            {
+                Console.WriteLine(category);
+            }
         }
 
         /// <summary>
