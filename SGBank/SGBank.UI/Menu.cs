@@ -36,6 +36,8 @@ namespace SGBank.UI
                         depositWorkflow.Execute();
                         break;
                     case "3":
+                        WithdrawWorkflow withdrawWorkflow = new WithdrawWorkflow();
+                        withdrawWorkflow.Execute();
                         break;
                     case "Q":
                         return;
