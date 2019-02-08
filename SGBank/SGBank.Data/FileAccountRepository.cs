@@ -16,6 +16,11 @@ namespace SGBank.Data
         {
             string[] rows = File.ReadAllLines(path);
             _accounts = new Dictionary<string, Account>();
+            foreach (string row in rows)
+            {
+                Account holder = FileAccountHandler.FromRow(row);
+                _accounts.Add(holder.AccountNumber, holder);
+            }
         }
         public Account LoadAccount(string AccountNumber)
         {
