@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SGBank.BLL.WithdrawRules
 {
-    public class PremiumAccountWithdrawRule
+    public class PremiumAccountWithdrawRule : IWithdraw
     {
         private static AccountWithdrawResponse FailedWithError(AccountWithdrawResponse r, string message)
         {
