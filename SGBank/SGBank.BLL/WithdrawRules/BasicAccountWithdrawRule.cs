@@ -39,6 +39,10 @@ namespace SGBank.BLL.WithdrawRules
             }
             response.OldBalance = account.Balance;
             account.Balance += amount;
+            if(account.Balance < 0)
+            {
+                account.Balance -= 10;
+            }
             response.Account = account;
             response.Amount = amount;
             response.Success = true;

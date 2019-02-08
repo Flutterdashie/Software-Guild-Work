@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using SGBank.BLL.DepositRules;
+using SGBank.BLL.WithdrawRules;
 using SGBank.Models;
 using SGBank.Models.Interfaces;
 using SGBank.Models.Responses;
@@ -30,6 +31,21 @@ namespace SGBank.Tests
             AccountDepositResponse response = deposit.Deposit(account, amount);
             Assert.AreEqual(expectedResult, response.Success);
         }
+
+        public void BasicAccountWithdrawRuleTest(string accountNumber, string name, decimal balance, AccountType accountType, decimal amount, decimal newBalance, bool expectedResult)
+        {
+            IWithdraw withdraw = new BasicAccountWithdrawRule();
+            Account account = new Account()
+            {
+                AccountNumber = accountNumber,
+                Name = name,
+                Balance = balance,
+                Type = accountType,
+            };
+            AccountWithdrawResponse response = withdraw.Withdraw(account, amount);
+            Assert.AreEqual(expectedResult, response.Success);
+        }
+
 
     }
 }
