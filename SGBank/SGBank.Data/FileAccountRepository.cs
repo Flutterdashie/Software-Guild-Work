@@ -11,17 +11,20 @@ namespace SGBank.Data
 {
     public class FileAccountRepository : IAccountRepository
     {
-        private Dictionary<string, Account> _accounts;
+        private static Dictionary<string, Account> _accounts = new Dictionary<string, Account>();
         private readonly string _path;
         public FileAccountRepository(string path)
         {
             _path = path;
             string[] rows = File.ReadAllLines(_path);
-            _accounts = new Dictionary<string, Account>();
+            //_accounts = new Dictionary<string, Account>();
             foreach (string row in rows)
             {
                 Account holder = FileAccountHandler.FromRow(row);
-                _accounts.Add(holder.AccountNumber, holder);
+                if(!_accounts.ContainsKey(holder.AccountNumber))
+                {
+                    _accounts.Add(holder.AccountNumber, holder);
+                }
             }
         }
         public Account LoadAccount(string AccountNumber)
@@ -40,7 +43,7 @@ namespace SGBank.Data
                 throw new KeyNotFoundException("The account number has been changed since last load. Please contact IT");
             }
             _accounts[account.AccountNumber] = account;
-            //SaveFile();
+            SaveFile();
         }
         private List<Account> ReadAllAccounts()
         {
