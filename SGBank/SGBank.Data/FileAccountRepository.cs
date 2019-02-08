@@ -38,6 +38,7 @@ namespace SGBank.Data
                 if (rows[i].Split(',')[0] == account.AccountNumber)
                 {
                     rows[i] = FileAccountHandler.ToRow(account);
+                    break;
                 }
             }
             File.WriteAllLines(_path, rows);
