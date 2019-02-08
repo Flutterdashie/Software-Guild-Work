@@ -11,52 +11,37 @@ namespace SGBank.Data
 {
     public class FileAccountRepository : IAccountRepository
     {
-        private static Dictionary<string, Account> _accounts = new Dictionary<string, Account>();
         private readonly string _path;
         public FileAccountRepository(string path)
         {
             _path = path;
-            string[] rows = File.ReadAllLines(_path);
-            //_accounts = new Dictionary<string, Account>();
-            foreach (string row in rows)
-            {
-                Account holder = FileAccountHandler.FromRow(row);
-                if(!_accounts.ContainsKey(holder.AccountNumber))
-                {
-                    _accounts.Add(holder.AccountNumber, holder);
-                }
-            }
         }
         public Account LoadAccount(string AccountNumber)
         {
-            if(_accounts.ContainsKey(AccountNumber))
+            string[] rows = File.ReadAllLines(_path);
+            foreach (string row in rows)
             {
-                return _accounts[AccountNumber];
+                if(row.Split(',')[0] == AccountNumber)
+                {
+                    return FileAccountHandler.FromRow(row);
+                }
             }
             return null;
         }
 
         public void SaveAccount(Account account)
         {
-            if(!_accounts.ContainsKey(account.AccountNumber))
+            string[] rows = File.ReadAllLines(_path);
+
+            for (int i = 0; i < rows.Length; i++)
             {
-                throw new KeyNotFoundException("The account number has been changed since last load. Please contact IT");
+                if (rows[i].Split(',')[0] == account.AccountNumber)
+                {
+                    rows[i] = FileAccountHandler.ToRow(account);
+                }
             }
-            _accounts[account.AccountNumber] = account;
-            SaveFile();
+            File.WriteAllLines(_path, rows);
         }
-        private List<Account> ReadAllAccounts()
-        {
-            return _accounts.Values.ToList();
-        }
-        private void SaveFile()
-        {
-            List<string> accountData = new List<string>();
-            foreach (Account account in ReadAllAccounts())
-            {
-                accountData.Add(FileAccountHandler.ToRow(account));
-            }
-            File.WriteAllLines(_path, accountData);
-        }
+        
     }
 }

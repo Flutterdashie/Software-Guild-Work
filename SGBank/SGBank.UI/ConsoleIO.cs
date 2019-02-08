@@ -15,5 +15,6 @@ namespace SGBank.UI
             Console.WriteLine($"Name: {account.Name}");
             Console.WriteLine($"Balance: {account.Balance:c}");
         }
+
     }
 }
