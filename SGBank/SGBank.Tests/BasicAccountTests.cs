@@ -32,6 +32,12 @@ namespace SGBank.Tests
             Assert.AreEqual(expectedResult, response.Success);
         }
 
+
+        [TestCase("33333", "Basic Account", 1500, AccountType.Basic, -1000, 1500, false)] // Too much withdrawn
+        [TestCase("33333", "Basic Account", 100, AccountType.Free, -100, 100, false)] // Wrong account type
+        [TestCase("33333", "Basic Account", 100, AccountType.Basic, 100, 100, false)] // Positive amount withdrawn
+        [TestCase("33333", "Basic Account", 150, AccountType.Basic, -50, 100, true)] //Success, no overdraft
+        [TestCase("33333", "Basic Account", 100, AccountType.Basic, -150, -60, true)] //Success, $10 overdraft fee
         public void BasicAccountWithdrawRuleTest(string accountNumber, string name, decimal balance, AccountType accountType, decimal amount, decimal newBalance, bool expectedResult)
         {
             IWithdraw withdraw = new BasicAccountWithdrawRule();
@@ -44,6 +50,7 @@ namespace SGBank.Tests
             };
             AccountWithdrawResponse response = withdraw.Withdraw(account, amount);
             Assert.AreEqual(expectedResult, response.Success);
+            Assert.AreEqual(newBalance, account.Balance);
         }
 
 
