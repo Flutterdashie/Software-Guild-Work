@@ -22,6 +22,8 @@ namespace SGBank.BLL
                     return new AccountManager(new BasicAccountTestRepository());
                 case "PremiumTest":
                     return new AccountManager(new PremiumAccountTestRepository());
+                case "FileTest":
+                    return new AccountManager(new FileAccountRepository(@".\Accounts.txt"));
                 default:
                     throw new Exception("Mode value in app config is not valid");
             }
