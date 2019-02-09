@@ -16,5 +16,17 @@ namespace SGBank.UI
             Console.WriteLine($"Balance: {account.Balance:c}");
         }
 
+        public static bool TryParseCurrency(string input, out decimal result)
+        {
+            bool validNumber = decimal.TryParse(input, out result);
+            if (validNumber)
+            {
+                return (result * 100.0M) == decimal.Truncate(result * 100.0M);
+            }
+            else
+            {
+                return validNumber;
+            }
+        }
     }
 }

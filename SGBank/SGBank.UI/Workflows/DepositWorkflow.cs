@@ -19,7 +19,7 @@ namespace SGBank.UI.Workflows
             string accountNumber = Console.ReadLine();
 
             Console.Write("Enter a deposit amount: ");
-            bool validInput = decimal.TryParse(Console.ReadLine(), out decimal amount);
+            bool validInput = ConsoleIO.TryParseCurrency(Console.ReadLine(), out decimal amount);
             AccountDepositResponse response;
             if (validInput)
             {
