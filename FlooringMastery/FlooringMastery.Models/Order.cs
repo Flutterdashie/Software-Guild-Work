@@ -38,12 +38,15 @@ namespace FlooringMastery.Models
             this.taxTotal = taxTotal;
             this.total = total;
         }
-        public Order(DateTime date, string name, string stateAbbr, string productType, decimal area)
+        public Order(DateTime date, string name, State state, Product product, decimal area)
         {
             this.date = date;
             this.name = name;
-            this.stateAbbr = stateAbbr;
-            this.productType = productType;
+            this.stateAbbr = state.StateAbbr;
+            this.taxRate = state.TaxRate;
+            this.productType = product.ProductType;
+            this.costPSF = product.CostPerSquareFoot;
+            this.laborCostPSF = product.LaborCostPerSquareFoot;
             this.area = area;
         }
 
