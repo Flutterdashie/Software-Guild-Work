@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FlooringMastery.Data
 {
-    public static class TaxMapper
+    public static class StateMapper
     {
         public static List<State> GetStates()
         {
