@@ -8,12 +8,12 @@ namespace FlooringMastery.Models
 {
     public struct Product
     {
-        public readonly string Name;
+        public readonly string ProductType;
         public readonly decimal CostPerSquareFoot;
         public readonly decimal LaborCostPerSquareFoot;
         public Product(string name, decimal costPSF, decimal laborCostPSF)
         {
-            Name = name;
+            ProductType = name;
             CostPerSquareFoot = costPSF;
             LaborCostPerSquareFoot = laborCostPSF;
         }
