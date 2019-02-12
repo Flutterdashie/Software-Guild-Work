@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IProductGetter.cs" />
+    <Compile Include="IStateGetter.cs" />
     <Compile Include="IUserIO.cs" />
     <Compile Include="MenuChoice.cs" />
     <Compile Include="Order.cs" />
