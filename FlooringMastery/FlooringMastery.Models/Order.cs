@@ -62,6 +62,17 @@ namespace FlooringMastery.Models
             CalculateTotals();
         }
 
+        public void Recalculate(Product product, State state, decimal area)
+        {
+            this.stateAbbr = state.StateAbbr;
+            this.taxRate = state.TaxRate;
+            this.productType = product.ProductType;
+            this.costPSF = product.CostPerSquareFoot;
+            this.laborCostPSF = product.LaborCostPerSquareFoot;
+            this.area = area;
+            CalculateTotals();
+        }
+
         private void CalculateTotals()
         {
             materialCost = area * costPSF;
@@ -73,6 +84,11 @@ namespace FlooringMastery.Models
         public void UpdateName(string newName)
         {
             this.name = newName;
+        }
+
+        public void UpdateNum(int newNum)
+        {
+            this.orderNum = newNum;
         }
 
         public string GetFullOrderString()
