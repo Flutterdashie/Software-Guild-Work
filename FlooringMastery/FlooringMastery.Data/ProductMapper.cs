@@ -13,7 +13,7 @@ namespace FlooringMastery.Data
         public static List<Product> GetAllProducts()
         {
             List<Product> result = new List<Product>();
-            string[] lines = File.ReadAllLines(@".\taxes.txt");
+            string[] lines = File.ReadAllLines(@".\Products.txt");
             foreach (string line in lines)
             {
                 string[] values = line.Split(',');
