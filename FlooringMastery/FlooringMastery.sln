@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlooringMastery.UI", "Floor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlooringMastery.Tests", "FlooringMastery.Tests\FlooringMastery.Tests.csproj", "{586D8416-4ADF-4516-832D-178D7E683D25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlooringMastery.Services", "FlooringMastery.Services\FlooringMastery.Services.csproj", "{71370A56-55D7-45B1-84A6-D88247A71995}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,10 +45,6 @@ Global
 		{586D8416-4ADF-4516-832D-178D7E683D25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{586D8416-4ADF-4516-832D-178D7E683D25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{586D8416-4ADF-4516-832D-178D7E683D25}.Release|Any CPU.Build.0 = Release|Any CPU
-		{71370A56-55D7-45B1-84A6-D88247A71995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71370A56-55D7-45B1-84A6-D88247A71995}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71370A56-55D7-45B1-84A6-D88247A71995}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71370A56-55D7-45B1-84A6-D88247A71995}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
