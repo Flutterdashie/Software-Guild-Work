@@ -45,5 +45,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaxMapper.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FlooringMastery.Models\FlooringMastery.Models.csproj">
+      <Project>{721b6482-3abc-4aea-94aa-3551f2f8d984}</Project>
+      <Name>FlooringMastery.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
