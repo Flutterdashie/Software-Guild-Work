@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IOrderRepo.cs" />
     <Compile Include="IProductGetter.cs" />
     <Compile Include="IStateGetter.cs" />
     <Compile Include="IUserIO.cs" />
