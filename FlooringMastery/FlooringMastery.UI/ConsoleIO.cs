@@ -25,7 +25,25 @@ namespace FlooringMastery.UI
 
         public decimal GetArea(string prompt)
         {
-            throw new NotImplementedException();
+            bool validInput = false;
+            decimal result = 0;
+            do
+            {
+
+                Console.WriteLine(prompt);
+                validInput = decimal.TryParse(Console.ReadLine(), out result);
+                if (!validInput)
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid decimal.");
+                }
+                else if (result < 100)
+                {
+                    Console.WriteLine("Invalid input. Minimum order size is 100 square feet.");
+                    validInput = false;
+                }
+
+            } while (!validInput);
+            return result;
         }
 
         public DateTime GetDate(string prompt)
