@@ -20,7 +20,31 @@ namespace FlooringMastery.UI
 
         public Product PickProduct(IEnumerable<Product> products)
         {
-            throw new NotImplementedException();
+            
+            string productFormat = "{0,-20} | {1,12:C} | {2,12:C}";
+            string userInput;
+
+            do
+            {
+
+                Console.ResetColor();
+                Console.WriteLine(productFormat, "Description", "$/sqft", "Labor $/sqft");
+                foreach (Product product in products)
+                {
+                    Console.WriteLine(productFormat, product.ProductType, product.CostPerSquareFoot, product.LaborCostPerSquareFoot);
+                }
+                Console.WriteLine("Please enter the desired product:");
+                userInput = Console.ReadLine();
+                //Slight shortcut, just prevents me writing this mess out in both lines. Probably not a good idea, but nice proof of concept.
+                bool MatchesName(Product p) => p.ProductType.Equals(userInput, StringComparison.CurrentCultureIgnoreCase);
+                if (products.Count(MatchesName) == 1)
+                {
+                    return products.First(MatchesName);
+                }
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid product. Please try again.");
+            } while (true);
         }
 
         public decimal GetArea(string prompt)
