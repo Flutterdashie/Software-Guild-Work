@@ -38,6 +38,7 @@ namespace FlooringMastery.Data
             File.WriteAllLines(GetPathByDate(date), lines);
 
         }
+
         private static string GetPathByDate(DateTime date)
         {
             return @".\Orders_" + date.ToString("MMddyyyy") + ".txt";

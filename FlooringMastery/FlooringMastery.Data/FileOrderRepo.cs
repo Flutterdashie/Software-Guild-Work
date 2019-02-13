@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace FlooringMastery.Data
     {
         public int GetNextOrderNum(DateTime date)
         {
-            throw new NotImplementedException();
+            return GetOrdersByDate(date).Max(o => o.OrderNum) + 1;
         }
         /// <summary>
         /// Get all orders on specified date
@@ -21,7 +22,15 @@ namespace FlooringMastery.Data
         /// <returns>All orders on date</returns>
         public IEnumerable<Order> GetOrdersByDate(DateTime date)
         {
-            throw new NotImplementedException();
+            IEnumerable<Order> result = new List<Order>();
+            try
+            {
+                result = OrderMapper.ReadAllFromDate(date);
+            } catch (FileNotFoundException e)
+            {
+                //date doesn't exist yet, return empty list
+            }
+            return result;
         }
 
         /// <summary>
