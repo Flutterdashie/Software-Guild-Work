@@ -10,5 +10,8 @@ namespace FlooringMastery.Models
     {
         IEnumerable<Order> GetOrdersByDate(DateTime date);
         Order GetSpecificOrder(int orderNum, DateTime date);
+        int GetNextOrderNum(DateTime date);
+        void SaveOrder(Order order);
+
     }
 }
