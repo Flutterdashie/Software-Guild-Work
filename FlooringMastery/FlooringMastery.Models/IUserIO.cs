@@ -37,5 +37,13 @@ namespace FlooringMastery.Models
         /// <param name="prompt">String to display to the user</param>
         /// <returns>Date from user</returns>
         DateTime GetDate(string prompt);
+
+
+        /// <summary>
+        /// Gets an int from user with a validation loop
+        /// </summary>
+        /// <param name="prompt">message to display</param>
+        /// <returns>integer from user</returns>
+        int GetInt(string prompt);
     }
 }

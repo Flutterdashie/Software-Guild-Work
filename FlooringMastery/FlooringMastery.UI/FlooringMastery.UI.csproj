@@ -44,5 +44,11 @@
     <Compile Include="ConsoleIO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FlooringMastery.Models\FlooringMastery.Models.csproj">
+      <Project>{721B6482-3ABC-4AEA-94AA-3551F2F8D984}</Project>
+      <Name>FlooringMastery.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
