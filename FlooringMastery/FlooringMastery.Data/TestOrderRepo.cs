@@ -9,7 +9,7 @@ namespace FlooringMastery.Data
 {
     public class TestOrderRepo : IOrderRepo
     {
-        private static Dictionary<DateTime, List<Order>> AllOrders = new Dictionary<DateTime, List<Order>>();
+        private static Dictionary<DateTime, IEnumerable<Order>> AllOrders = new Dictionary<DateTime, IEnumerable<Order>>();
         private static readonly DateTime Jan012013 = new DateTime(2013, 1, 1);
         private static List<Order> _OrdersJan12013 = new List<Order>
         {
@@ -27,12 +27,19 @@ namespace FlooringMastery.Data
 
         public IEnumerable<Order> GetOrdersByDate(DateTime date)
         {
-            throw new NotImplementedException();
+            if (AllOrders.ContainsKey(date))
+            {
+                return AllOrders[date];
+            } else
+            {
+                return new List<Order>();
+            }
         }
 
+        //Can throw InvalidOperationException
         public Order GetSpecificOrder(int orderNum, DateTime date)
         {
-            throw new NotImplementedException();
+            return GetOrdersByDate(date).First(o => o.OrderNum == orderNum);
         }
 
         public void SaveOrder(Order order)
@@ -46,6 +53,19 @@ namespace FlooringMastery.Data
             {
                 int index = orders.IndexOf(order);
                 orders[index] = order;
+            }
+            WriteAllToDate(order.Date,orders);
+        }
+
+        private void WriteAllToDate(DateTime date, IEnumerable<Order> orders)
+        {
+            if(AllOrders.ContainsKey(date))
+            {
+                AllOrders[date] = orders;
+            }
+            else
+            {
+                AllOrders.Add(date, orders);
             }
         }
     }
