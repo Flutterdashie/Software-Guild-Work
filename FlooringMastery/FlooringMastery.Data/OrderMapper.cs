@@ -53,7 +53,7 @@ namespace FlooringMastery.Data
         /// <exception cref="FormatException">This means that one of the parses failed. Data is corrupt. Thrown all the way up the stack, </exception>
         private static Order FromLine(string line, DateTime date)
         {
-            string[] values = line.Split(',');
+            string[] values = line.Split('?');
             int oNum = int.Parse(values[0]);
             string name = values[1];
             string sAbbr = values[2];
@@ -84,7 +84,7 @@ namespace FlooringMastery.Data
             contents[9] = order.LaborCost.ToString();
             contents[10] = order.TaxTotal.ToString();
             contents[11] = order.Total.ToString();
-            return string.Join(",", contents);
+            return string.Join("?", contents);
         }
     }
 }

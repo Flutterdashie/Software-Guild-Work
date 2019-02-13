@@ -9,7 +9,7 @@ namespace FlooringMastery.Models
     public class Order
     {
         public int OrderNum { get; private set; }
-        private DateTime date;
+        public DateTime Date { get; private set; }
         public string Name { get; private set; }
         public string StateAbbr { get; private set; }
         public decimal TaxRate { get; private set; }
@@ -25,7 +25,7 @@ namespace FlooringMastery.Models
         public Order(int orderNum, DateTime date, string name, string stateAbbr, decimal taxRate, string productType, decimal area, decimal costPSF, decimal laborCostPSF, decimal materialCost, decimal laborCost, decimal taxTotal, decimal total)
         {
             this.OrderNum = orderNum;
-            this.date = date;
+            this.Date = date;
             this.Name = name;
             this.StateAbbr = stateAbbr;
             this.TaxRate = taxRate;
@@ -40,7 +40,7 @@ namespace FlooringMastery.Models
         }
         public Order(DateTime date, string name, State state, Product product, decimal area)
         {
-            this.date = date;
+            this.Date = date;
             this.Name = name;
             this.StateAbbr = state.StateAbbr;
             this.TaxRate = state.TaxRate;
@@ -94,7 +94,7 @@ namespace FlooringMastery.Models
         public string GetFullOrderString()
         {
             string result = new string('*', 60);
-            result += "\n" + OrderNum.ToString() + " | " + date.ToShortDateString();
+            result += "\n" + OrderNum.ToString() + " | " + Date.ToShortDateString();
             result += "\n" + Name;
             result += "\n" + StateAbbr;
             result += "\n" + "Product: " + ProductType;

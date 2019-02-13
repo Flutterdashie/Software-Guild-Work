@@ -13,7 +13,7 @@ namespace FlooringMastery.Data
     {
         public int GetNextOrderNum(DateTime date)
         {
-            return GetOrdersByDate(date).Max(o => o.OrderNum) + 1;
+            return GetOrdersByDate(date).DefaultIfEmpty().Max(o => o.OrderNum) + 1;
         }
         /// <summary>
         /// Get all orders on specified date
@@ -47,7 +47,7 @@ namespace FlooringMastery.Data
 
         public void SaveOrder(Order order)
         {
-            throw new NotImplementedException();
+
         }
     }
 }
