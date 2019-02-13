@@ -41,11 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileOrderRepo.cs" />
     <Compile Include="ProductGetter.cs" />
     <Compile Include="ProductMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StateGetter.cs" />
     <Compile Include="StateMapper.cs" />
+    <Compile Include="TestOrderRepo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FlooringMastery.Models\FlooringMastery.Models.csproj">

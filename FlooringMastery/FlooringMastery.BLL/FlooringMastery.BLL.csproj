@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,7 +42,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OrderManager.cs" />
+    <Compile Include="OrderManagerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FlooringMastery.Data\FlooringMastery.Data.csproj">
+      <Project>{B9E537BC-2A2D-41A0-9B67-7CEAABDAA84B}</Project>
+      <Name>FlooringMastery.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FlooringMastery.Models\FlooringMastery.Models.csproj">
+      <Project>{721B6482-3ABC-4AEA-94AA-3551F2F8D984}</Project>
+      <Name>FlooringMastery.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
