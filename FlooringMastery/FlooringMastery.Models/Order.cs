@@ -8,7 +8,7 @@ namespace FlooringMastery.Models
 {
     public class Order
     {
-        private int orderNum;
+        public int OrderNum { get; private set; }
         private DateTime date;
         private string name;
         private string stateAbbr;
@@ -24,7 +24,7 @@ namespace FlooringMastery.Models
 
         public Order(int orderNum, DateTime date, string name, string stateAbbr, decimal taxRate, string productType, decimal area, decimal costPSF, decimal laborCostPSF, decimal materialCost, decimal laborCost, decimal taxTotal, decimal total)
         {
-            this.orderNum = orderNum;
+            this.OrderNum = orderNum;
             this.date = date;
             this.name = name;
             this.stateAbbr = stateAbbr;
@@ -75,9 +75,9 @@ namespace FlooringMastery.Models
 
         private void CalculateTotals()
         {
-            materialCost = area * costPSF;
-            laborCost = area * laborCostPSF;
-            taxTotal = (materialCost + laborCost) * taxRate / 100.0M;
+            materialCost = decimal.Round(area * costPSF,2);
+            laborCost = decimal.Round(area * laborCostPSF,2);
+            taxTotal = decimal.Round((materialCost + laborCost) * taxRate / 100.0M,2);
             total = materialCost + laborCost + taxTotal;
         }
 
@@ -88,13 +88,13 @@ namespace FlooringMastery.Models
 
         public void UpdateNum(int newNum)
         {
-            this.orderNum = newNum;
+            this.OrderNum = newNum;
         }
 
         public string GetFullOrderString()
         {
             string result = new string('*', 60);
-            result += "\n" + orderNum.ToString() + " | " + date.ToShortDateString();
+            result += "\n" + OrderNum.ToString() + " | " + date.ToShortDateString();
             result += "\n" + name;
             result += "\n" + stateAbbr;
             result += "\n" + "Product: " + productType;
