@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileOrderRepo.cs" />
+    <Compile Include="OrderMapper.cs" />
     <Compile Include="ProductGetter.cs" />
     <Compile Include="ProductMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

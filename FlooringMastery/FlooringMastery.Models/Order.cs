@@ -10,80 +10,80 @@ namespace FlooringMastery.Models
     {
         public int OrderNum { get; private set; }
         private DateTime date;
-        private string name;
-        private string stateAbbr;
-        private decimal taxRate;
-        private string productType;
-        private decimal area;
-        private decimal costPSF;
-        private decimal laborCostPSF;
-        private decimal materialCost;
-        private decimal laborCost;
-        private decimal taxTotal;
-        private decimal total;
+        public string Name { get; private set; }
+        public string StateAbbr { get; private set; }
+        public decimal TaxRate { get; private set; }
+        public string ProductType { get; private set; }
+        public decimal Area { get; private set; }
+        public decimal CostPSF { get; private set; }
+        public decimal LaborCostPSF { get; private set; }
+        public decimal MaterialCost { get; private set; }
+        public decimal LaborCost { get; private set; }
+        public decimal TaxTotal { get; private set; }
+        public decimal Total { get; private set; }
 
         public Order(int orderNum, DateTime date, string name, string stateAbbr, decimal taxRate, string productType, decimal area, decimal costPSF, decimal laborCostPSF, decimal materialCost, decimal laborCost, decimal taxTotal, decimal total)
         {
             this.OrderNum = orderNum;
             this.date = date;
-            this.name = name;
-            this.stateAbbr = stateAbbr;
-            this.taxRate = taxRate;
-            this.productType = productType;
-            this.area = area;
-            this.costPSF = costPSF;
-            this.laborCostPSF = laborCostPSF;
-            this.materialCost = materialCost;
-            this.laborCost = laborCost;
-            this.taxTotal = taxTotal;
-            this.total = total;
+            this.Name = name;
+            this.StateAbbr = stateAbbr;
+            this.TaxRate = taxRate;
+            this.ProductType = productType;
+            this.Area = area;
+            this.CostPSF = costPSF;
+            this.LaborCostPSF = laborCostPSF;
+            this.MaterialCost = materialCost;
+            this.LaborCost = laborCost;
+            this.TaxTotal = taxTotal;
+            this.Total = total;
         }
         public Order(DateTime date, string name, State state, Product product, decimal area)
         {
             this.date = date;
-            this.name = name;
-            this.stateAbbr = state.StateAbbr;
-            this.taxRate = state.TaxRate;
-            this.productType = product.ProductType;
-            this.costPSF = product.CostPerSquareFoot;
-            this.laborCostPSF = product.LaborCostPerSquareFoot;
-            this.area = area;
+            this.Name = name;
+            this.StateAbbr = state.StateAbbr;
+            this.TaxRate = state.TaxRate;
+            this.ProductType = product.ProductType;
+            this.CostPSF = product.CostPerSquareFoot;
+            this.LaborCostPSF = product.LaborCostPerSquareFoot;
+            this.Area = area;
         }
 
         //TODO: Pick one of these to actually use
         public void Recalculate(string productType, decimal costPSF, decimal laborCostPSF, string stateAbbr, decimal taxRate, decimal area)
         {
-            this.productType = productType;
-            this.costPSF = costPSF;
-            this.laborCostPSF = laborCostPSF;
-            this.stateAbbr = stateAbbr;
-            this.taxRate = taxRate;
-            this.area = area;
+            this.ProductType = productType;
+            this.CostPSF = costPSF;
+            this.LaborCostPSF = laborCostPSF;
+            this.StateAbbr = stateAbbr;
+            this.TaxRate = taxRate;
+            this.Area = area;
             CalculateTotals();
         }
 
         public void Recalculate(Product product, State state, decimal area)
         {
-            this.stateAbbr = state.StateAbbr;
-            this.taxRate = state.TaxRate;
-            this.productType = product.ProductType;
-            this.costPSF = product.CostPerSquareFoot;
-            this.laborCostPSF = product.LaborCostPerSquareFoot;
-            this.area = area;
+            this.StateAbbr = state.StateAbbr;
+            this.TaxRate = state.TaxRate;
+            this.ProductType = product.ProductType;
+            this.CostPSF = product.CostPerSquareFoot;
+            this.LaborCostPSF = product.LaborCostPerSquareFoot;
+            this.Area = area;
             CalculateTotals();
         }
 
         private void CalculateTotals()
         {
-            materialCost = decimal.Round(area * costPSF,2);
-            laborCost = decimal.Round(area * laborCostPSF,2);
-            taxTotal = decimal.Round((materialCost + laborCost) * taxRate / 100.0M,2);
-            total = materialCost + laborCost + taxTotal;
+            MaterialCost = decimal.Round(Area * CostPSF,2);
+            LaborCost = decimal.Round(Area * LaborCostPSF,2);
+            TaxTotal = decimal.Round((MaterialCost + LaborCost) * TaxRate / 100.0M,2);
+            Total = MaterialCost + LaborCost + TaxTotal;
         }
 
         public void UpdateName(string newName)
         {
-            this.name = newName;
+            this.Name = newName;
         }
 
         public void UpdateNum(int newNum)
@@ -95,13 +95,13 @@ namespace FlooringMastery.Models
         {
             string result = new string('*', 60);
             result += "\n" + OrderNum.ToString() + " | " + date.ToShortDateString();
-            result += "\n" + name;
-            result += "\n" + stateAbbr;
-            result += "\n" + "Product: " + productType;
-            result += "\n" + "Materials: " + string.Format("{0,10:c}", materialCost);
-            result += "\n" + "Labor: " + string.Format("{0,10:c}", laborCost);
-            result += "\n" + "Tax: " + string.Format("{0,10:c}", taxTotal);
-            result += "\n" + "Total: " + string.Format("{0,10:c}", total);
+            result += "\n" + Name;
+            result += "\n" + StateAbbr;
+            result += "\n" + "Product: " + ProductType;
+            result += "\n" + "Materials: " + string.Format("{0,10:c}", MaterialCost);
+            result += "\n" + "Labor: " + string.Format("{0,10:c}", LaborCost);
+            result += "\n" + "Tax: " + string.Format("{0,10:c}", TaxTotal);
+            result += "\n" + "Total: " + string.Format("{0,10:c}", Total);
             result += "\n" + new string('*', 60);
             return result;
 
