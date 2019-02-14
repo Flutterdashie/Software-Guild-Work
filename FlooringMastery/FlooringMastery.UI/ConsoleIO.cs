@@ -15,7 +15,16 @@ namespace FlooringMastery.UI
 
         public MenuChoice GetMenuChoice()
         {
-            throw new NotImplementedException();
+            int userChoice = 0;
+            bool validChoice = false;
+            DisplayMenu();
+            do
+            {
+                userChoice = GetInt("Enter a menu choice, 1-5");
+                validChoice = userChoice <= 5 && userChoice >= 1;
+            } while (!validChoice);
+            //TODO: maybe make this nicer to the user I guess
+            return (MenuChoice)userChoice;
         }
 
         public Product PickProduct(IEnumerable<Product> products)
@@ -160,12 +169,13 @@ namespace FlooringMastery.UI
                 {
                     Console.WriteLine("Invalid input. State is either nonexistant, or not currently available for sales.");
                     continue;
-                } else
+                }
+                else
                 {
                     return query.First();
                 }
             } while (true);
-            
+
         }
 
         public string GetString(string prompt)
@@ -173,6 +183,21 @@ namespace FlooringMastery.UI
             Console.WriteLine(prompt);
             return Console.ReadLine();
         }
+
+        public void DisplayMenu()
+        {
+            Console.WriteLine(new string('*', 27));
+            Console.WriteLine("* Flooring Program");
+            Console.WriteLine("*");
+            Console.WriteLine("* 1. Display Orders");
+            Console.WriteLine("* 2. Add an Order");
+            Console.WriteLine("* 3. Edit an Order");
+            Console.WriteLine("* 4. Remove an Order");
+            Console.WriteLine("* 5. Quit");
+            Console.WriteLine("*");
+            Console.WriteLine(new string('*', 27));
+        }
+
     }
 }
 
