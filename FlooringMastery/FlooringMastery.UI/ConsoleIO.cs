@@ -160,8 +160,12 @@ namespace FlooringMastery.UI
                 {
                     Console.WriteLine("Invalid input. State is either nonexistant, or not currently available for sales.");
                     continue;
+                } else
+                {
+                    return query.First();
                 }
             } while (true);
+            
         }
 
         public string GetString(string prompt)

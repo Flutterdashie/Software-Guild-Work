@@ -22,7 +22,14 @@ namespace FlooringMastery.Data
         }
         public int GetNextOrderNum(DateTime date)
         {
-            return GetOrdersByDate(date).Max(o => o.OrderNum) + 1;
+            try
+            {
+                return GetOrdersByDate(date).Max(o => o.OrderNum) + 1;
+            } catch (InvalidOperationException)
+            {
+                return 1;
+            }
+            
         }
 
         public IEnumerable<Order> GetOrdersByDate(DateTime date)

@@ -48,6 +48,7 @@ namespace FlooringMastery.Models
             this.CostPSF = product.CostPerSquareFoot;
             this.LaborCostPSF = product.LaborCostPerSquareFoot;
             this.Area = area;
+            CalculateTotals();
         }
 
         //TODO: Pick one of these to actually use

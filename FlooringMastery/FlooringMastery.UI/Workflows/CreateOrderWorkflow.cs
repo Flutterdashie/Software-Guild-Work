@@ -56,7 +56,18 @@ namespace FlooringMastery.UI.Workflows
 
         private string GetCustomerName(IUserIO io)
         {
-            throw new NotImplementedException();
+            string userIn;
+            bool firstTime = true;
+            do
+            {
+                if(!firstTime)
+                {
+                    io.WriteLine("Invalid input. Names may only contain letters, numbers, spaces, commas, and periods.");
+                }
+                userIn = io.GetString("Please enter your name.");
+                firstTime = false;
+            } while (!userIn.All(c => Char.IsLetterOrDigit(c) || c == ' ' || c == ',' || c == '.'));
+            return userIn;
         }
     }
 }
