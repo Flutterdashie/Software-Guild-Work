@@ -180,6 +180,7 @@ namespace FlooringMastery.UI
 
         public string GetString(string prompt)
         {
+            //TODO: Test for empty string
             Console.WriteLine(prompt);
             return Console.ReadLine();
         }
