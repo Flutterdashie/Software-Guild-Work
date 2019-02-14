@@ -45,5 +45,17 @@ namespace FlooringMastery.Models
         /// <param name="prompt">message to display</param>
         /// <returns>integer from user</returns>
         int GetInt(string prompt);
+
+        /// <summary>
+        /// Cleans up any view, often denotes a new submenu.
+        /// </summary>
+        void Clear();
+
+        /// <summary>
+        /// Pauses the program until the user interacts with it.
+        /// </summary>
+        /// <param name="prompt">Message to display while waiting</param>
+        void WaitForUser(string prompt);
+
     }
 }

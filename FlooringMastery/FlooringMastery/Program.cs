@@ -1,6 +1,8 @@
-﻿using FlooringMastery.Data;
+﻿using FlooringMastery.BLL;
+using FlooringMastery.Data;
 using FlooringMastery.Models;
 using FlooringMastery.UI;
+using FlooringMastery.UI.Workflows;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -15,10 +17,8 @@ namespace FlooringMastery
     {
         static void Main(string[] args)
         {
-            IUserIO userIO = new ConsoleIO();
-            IOrderRepo repo = new FileOrderRepo();
-            userIO.WriteLine(repo.GetSpecificOrder(2,new DateTime(2013,1,2)).GetFullOrderString());
-            Console.ReadLine();
+            ReadOrdersWorkflow workflow = new ReadOrdersWorkflow();
+            workflow.Execute();
         }
     }
 }

@@ -110,5 +110,16 @@ namespace FlooringMastery.UI
             } while (!validInput);
             return result;
         }
+
+        public void Clear()
+        {
+            Console.Clear();
+        }
+
+        public void WaitForUser(string prompt)
+        {
+            WriteLine(prompt);
+            Console.ReadKey();
+        }
     }
 }
