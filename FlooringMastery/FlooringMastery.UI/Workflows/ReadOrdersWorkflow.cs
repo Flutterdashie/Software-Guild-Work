@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FlooringMastery.UI.Workflows
 {
-    public class ReadOrdersWorkflow
+    public class ReadOrdersWorkflow : IWorkflow
     {
         public void Execute()
         {

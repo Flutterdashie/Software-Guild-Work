@@ -31,5 +31,21 @@ namespace FlooringMastery.BLL
             return result;
         }
 
+        public bool TryGetOrder(int orderNum, DateTime orderDate, out Order order)
+        {
+            bool result = false;
+            try
+            {
+                order = _repo.GetSpecificOrder(orderNum, orderDate);
+                result = true;
+            }
+            catch (InvalidOperationException)
+            {
+                result = false;
+                order = null;
+            }
+            return result;
+        }
+
     }
 }
