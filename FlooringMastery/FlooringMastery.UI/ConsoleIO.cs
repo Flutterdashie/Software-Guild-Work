@@ -20,7 +20,7 @@ namespace FlooringMastery.UI
 
         public Product PickProduct(IEnumerable<Product> products)
         {
-            
+
             string productFormat = "{0,-20} | {1,12:C} | {2,12:C}";
             string userInput;
 
@@ -83,7 +83,7 @@ namespace FlooringMastery.UI
                 {
                     Console.WriteLine("Invalid formatting. Please enter a valid date using a recognizable format, such as MM/DD/YYYY.");
                 }
-                else if(result.Year < 2010)
+                else if (result.Year < 2010)
                 {
                     Console.WriteLine("Please specify a date. Note that no orders were placed or can be placed before 2010.");
                     validInput = false;
@@ -102,9 +102,14 @@ namespace FlooringMastery.UI
 
                 Console.WriteLine(prompt);
                 validInput = int.TryParse(Console.ReadLine(), out result);
-                if(!validInput)
+                if (!validInput)
                 {
-                    Console.WriteLine("Invalid input. Please enter a valid integer.");
+                    Console.WriteLine("Invalid input. Please enter a valid positive integer.");
+                }
+                else if (result < 1)
+                {
+                    Console.WriteLine("Integer must be positive.");
+                    validInput = false;
                 }
 
             } while (!validInput);
@@ -120,6 +125,26 @@ namespace FlooringMastery.UI
         {
             WriteLine(prompt);
             Console.ReadKey();
+        }
+
+        public bool GetBool(string prompt)
+        { 
+            string userIn;
+            while (true)
+            {
+                Console.Write(prompt);
+                Console.Write(" (y/n): ");
+                userIn = Console.ReadLine().Trim().ToLower();
+                if (userIn.Equals("y") || userIn.Equals("yes"))
+                {
+                    return true;
+                }
+                if (userIn.Equals("n") || userIn.Equals("no"))
+                {
+                    return false;
+                }
+                Console.WriteLine("Invalid response. Note that \"yes\" and \"no\" are also valid, and input is not case-sensitive.");
+            }
         }
     }
 }

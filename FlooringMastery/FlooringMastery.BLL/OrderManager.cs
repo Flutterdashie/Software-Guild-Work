@@ -47,5 +47,18 @@ namespace FlooringMastery.BLL
             return result;
         }
 
+        public string DeleteOrder(Order order)
+        {
+            try
+            {
+                _repo.RemoveOrder(order);
+                return "Order deleted successfully.";
+            }
+            catch (InvalidOperationException)
+            {
+                return "Order was not found. Please contact IT.";
+            }
+        }
+
     }
 }

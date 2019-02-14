@@ -57,5 +57,12 @@ namespace FlooringMastery.Models
         /// <param name="prompt">Message to display while waiting</param>
         void WaitForUser(string prompt);
 
+        /// <summary>
+        /// Gets a boolean choice from user
+        /// </summary>
+        /// <param name="prompt">Question to respond to. Does NOT include input-specific terms (such as y/n)</param>
+        /// <returns>user's choice</returns>
+        bool GetBool(string prompt);
+
     }
 }
