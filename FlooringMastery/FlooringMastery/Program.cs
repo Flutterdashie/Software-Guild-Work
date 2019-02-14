@@ -17,8 +17,12 @@ namespace FlooringMastery
     {
         static void Main(string[] args)
         {
+            IWorkflow workflow2 = new ReadOrdersWorkflow();
+            workflow2.Execute();
             IWorkflow workflow = new RemoveOrderWorkflow();
             workflow.Execute();
+            
+            workflow2.Execute();
         }
     }
 }
