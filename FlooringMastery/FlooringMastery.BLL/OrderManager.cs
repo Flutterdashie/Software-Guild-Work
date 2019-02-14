@@ -61,6 +61,7 @@ namespace FlooringMastery.BLL
                 return "Order was not found. Please contact IT.";
             }
         }
+
         public IEnumerable<Product> GetProducts()
         {
             return _manager.GetProducts();
@@ -69,6 +70,19 @@ namespace FlooringMastery.BLL
         public IEnumerable<State> GetStates()
         {
             return _manager.GetStates();
+        }
+
+        public void SaveValidOrder(Order order)
+        {
+            //This should handle updating as well as adding new orders.
+            _repo.SaveOrder(order);
+        }
+
+        public Order ValidateNewOrder(Order order)
+        {
+            //This is used to ensure that a new order to be placed will have a valid order number before being displayed or used.
+            order.UpdateNum(_repo.GetNextOrderNum(order.Date));
+            return order;
         }
     }
 }

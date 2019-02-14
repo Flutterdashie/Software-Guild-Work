@@ -65,5 +65,7 @@ namespace FlooringMastery.Models
         bool GetBool(string prompt);
 
         State GetState(string prompt, IEnumerable<State> validStates);
+
+        string GetString(string prompt);
     }
 }

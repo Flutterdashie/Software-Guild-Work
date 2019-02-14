@@ -19,7 +19,7 @@ namespace FlooringMastery
         {
             IWorkflow workflow2 = new ReadOrdersWorkflow();
             workflow2.Execute();
-            IWorkflow workflow = new RemoveOrderWorkflow();
+            IWorkflow workflow = new CreateOrderWorkflow();
             workflow.Execute();
             
             workflow2.Execute();

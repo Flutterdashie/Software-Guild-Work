@@ -90,7 +90,7 @@ namespace FlooringMastery.UI
                 }
 
             } while (!validInput);
-            return result;
+            return result.Date;
         }
 
         public int GetInt(string prompt)
@@ -162,6 +162,12 @@ namespace FlooringMastery.UI
                     continue;
                 }
             } while (true);
+        }
+
+        public string GetString(string prompt)
+        {
+            Console.WriteLine(prompt);
+            return Console.ReadLine();
         }
     }
 }
