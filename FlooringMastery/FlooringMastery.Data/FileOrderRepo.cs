@@ -40,7 +40,7 @@ namespace FlooringMastery.Data
             try
             {
                 result = OrderMapper.ReadAllFromDate(date);
-            } catch (FileNotFoundException e)
+            } catch (FileNotFoundException)
             {
                 //date doesn't exist yet, return empty list
             }
