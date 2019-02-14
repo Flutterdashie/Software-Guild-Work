@@ -17,7 +17,7 @@ namespace FlooringMastery
         {
             IUserIO userIO = new ConsoleIO();
             IOrderRepo repo = new FileOrderRepo();
-            userIO.WriteLine(repo.GetSpecificOrder(1, new DateTime(2013, 6, 1)).GetFullOrderString());
+            userIO.WriteLine(repo.GetSpecificOrder(2,new DateTime(2013,1,2)).GetFullOrderString());
             Console.ReadLine();
         }
     }

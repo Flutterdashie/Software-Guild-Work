@@ -13,7 +13,21 @@ namespace FlooringMastery.Data
     {
         public int GetNextOrderNum(DateTime date)
         {
-            return GetOrdersByDate(date).DefaultIfEmpty().Max(o => o.OrderNum) + 1;
+            try
+            {
+                return GetOrdersByDate(date).Max(o => o.OrderNum) + 1;
+            }
+            catch (InvalidOperationException e)
+            {
+                if (e.Message == "Sequence contains no elements")
+                {
+                    return 1;
+                }
+                else
+                {
+                    throw e;
+                }
+            }
         }
         /// <summary>
         /// Get all orders on specified date
