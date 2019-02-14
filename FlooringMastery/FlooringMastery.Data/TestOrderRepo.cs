@@ -71,7 +71,12 @@ namespace FlooringMastery.Data
 
         public void RemoveOrder(Order order)
         {
-            throw new NotImplementedException();
+            List<Order> daysOrders = AllOrders[order.Date].ToList();
+            if (!daysOrders.Remove(order))
+            {
+                throw new InvalidOperationException();
+            }
+            AllOrders[order.Date] = daysOrders;
         }
     }
 }

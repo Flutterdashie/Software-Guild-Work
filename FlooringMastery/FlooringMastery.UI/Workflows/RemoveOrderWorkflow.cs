@@ -20,13 +20,14 @@ namespace FlooringMastery.UI.Workflows
             io.WriteLine(new string('*', 27));
             int targetNum = io.GetInt("Enter the order number to remove: ");
             DateTime targetDate = io.GetDate("Enter the date of the order to remove: ").Date;
-            if(manager.TryGetOrder(targetNum,targetDate, out Order target))
+            string result = "";
+            if (manager.TryGetOrder(targetNum,targetDate, out Order target))
             {
                 io.Clear();
                 io.WriteLine("Search result:");
                 io.WriteLine(target.GetFullOrderString());
                 bool confirm = io.GetBool("Are you sure you would like to delete this order?");
-                string result = "";
+
                 if(confirm)
                 {
                     result = manager.DeleteOrder(target);
@@ -35,9 +36,13 @@ namespace FlooringMastery.UI.Workflows
                 {
                     result = "Removal cancelled.";
                 }
-                io.WriteLine(result);
-                io.WaitForUser("Press any key to continue...");
             }
+            else
+            {
+                result = "No order found with given parameters. Returning to menu.";
+            }
+            io.WriteLine(result);
+            io.WaitForUser("Press any key to continue...");
         }
     }
 }
