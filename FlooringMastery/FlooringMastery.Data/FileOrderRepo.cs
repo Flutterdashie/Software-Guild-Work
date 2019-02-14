@@ -59,6 +59,17 @@ namespace FlooringMastery.Data
             return GetOrdersByDate(date).First(o => o.OrderNum == orderNum);
         }
 
+
+        public void RemoveOrder(Order order)
+        {
+            List<Order> orders = GetOrdersByDate(order.Date).ToList();
+            if(!orders.Remove(order)) 
+            {
+                throw new InvalidOperationException();
+            }
+            OrderMapper.WriteAllToDate(order.Date, orders);
+        }
+
         public void SaveOrder(Order order)
         {
             List<Order> orders = GetOrdersByDate(order.Date).ToList();

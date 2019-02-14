@@ -68,5 +68,10 @@ namespace FlooringMastery.Data
                 AllOrders.Add(date, orders);
             }
         }
+
+        public void RemoveOrder(Order order)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

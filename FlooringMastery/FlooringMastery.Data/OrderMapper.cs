@@ -35,8 +35,14 @@ namespace FlooringMastery.Data
             {
                 lines.Add(ToLine(order));
             }
-            File.WriteAllLines(GetPathByDate(date), lines);
-
+            if(lines.Count == 0)
+            {
+                File.Delete(GetPathByDate(date));
+            }
+            else
+            {
+                File.WriteAllLines(GetPathByDate(date), lines);
+            }
         }
 
         private static string GetPathByDate(DateTime date)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlooringMastery.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace FlooringMastery.UI.Workflows
 {
-    public class RemoveOrderWorkflow
+    public class RemoveOrderWorkflow : IWorkflow
     {
-
+        public void Execute()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

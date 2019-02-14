@@ -12,6 +12,6 @@ namespace FlooringMastery.Models
         Order GetSpecificOrder(int orderNum, DateTime date);
         int GetNextOrderNum(DateTime date);
         void SaveOrder(Order order);
-
+        void RemoveOrder(Order order);
     }
 }
