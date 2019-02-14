@@ -8,6 +8,6 @@ namespace FlooringMastery.Models
 {
     public interface IStateGetter
     {
-        State GetState(string id); // can use either name or abbrevation
+        IEnumerable<State> GetStates(); 
     }
 }

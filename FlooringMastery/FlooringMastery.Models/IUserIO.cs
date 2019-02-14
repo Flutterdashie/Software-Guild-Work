@@ -64,5 +64,6 @@ namespace FlooringMastery.Models
         /// <returns>user's choice</returns>
         bool GetBool(string prompt);
 
+        State GetState(string prompt, IEnumerable<State> validStates);
     }
 }

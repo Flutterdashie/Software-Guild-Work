@@ -10,8 +10,10 @@ namespace FlooringMastery.BLL
     public class OrderManager
     {
         private IOrderRepo _repo;
+        private LogisticsManager _manager;
         public OrderManager(IOrderRepo repo)
         {
+            _manager = LogisticsManagerFactory.Create();
             _repo = repo;
         }
 
@@ -59,6 +61,14 @@ namespace FlooringMastery.BLL
                 return "Order was not found. Please contact IT.";
             }
         }
-
+        public IEnumerable<Product> GetProducts()
+        {
+            return _manager.GetProducts();
+        }
+        
+        public IEnumerable<State> GetStates()
+        {
+            return _manager.GetStates();
+        }
     }
 }

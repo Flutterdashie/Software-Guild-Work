@@ -128,7 +128,7 @@ namespace FlooringMastery.UI
         }
 
         public bool GetBool(string prompt)
-        { 
+        {
             string userIn;
             while (true)
             {
@@ -146,5 +146,23 @@ namespace FlooringMastery.UI
                 Console.WriteLine("Invalid response. Note that \"yes\" and \"no\" are also valid, and input is not case-sensitive.");
             }
         }
+
+        public State GetState(string prompt, IEnumerable<State> validStates)
+        {
+            do
+            {
+                Console.WriteLine(prompt);
+                string userIn = Console.ReadLine().Trim();
+                var query = from s in validStates
+                            where s.StateAbbr.Equals(userIn, StringComparison.CurrentCultureIgnoreCase) || s.StateName.Equals(userIn, StringComparison.CurrentCultureIgnoreCase)
+                            select s;
+                if (query.Count() != 1)
+                {
+                    Console.WriteLine("Invalid input. State is either nonexistant, or not currently available for sales.");
+                    continue;
+                }
+            } while (true);
+        }
     }
 }
+

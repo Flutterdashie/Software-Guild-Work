@@ -9,12 +9,10 @@ namespace FlooringMastery.Data
 {
     public class StateGetter : IStateGetter
     {
-        public State GetState(string id)
+        public IEnumerable<State> GetStates()
         {
-            var query = from s in StateMapper.GetStates()
-                        where s.StateAbbr == id || s.StateName == id
-                        select s;
-            return query.FirstOrDefault();
+            //Provides room for states to be invalidated due to stock issues or whatever else later.
+            return StateMapper.GetStates();
         }
     }
 }
