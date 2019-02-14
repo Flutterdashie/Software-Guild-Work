@@ -93,16 +93,17 @@ namespace FlooringMastery.Models
 
         public string GetFullOrderString()
         {
-            string result = new string('*', 60);
+            string format = "\t{0,10:c}";
+            string result = new string('*', 27);
             result += "\n" + OrderNum.ToString() + " | " + Date.ToShortDateString();
             result += "\n" + Name;
             result += "\n" + StateAbbr;
-            result += "\n" + "Product: " + ProductType;
-            result += "\n" + "Materials: " + string.Format("{0,10:c}", MaterialCost);
-            result += "\n" + "Labor: " + string.Format("{0,10:c}", LaborCost);
-            result += "\n" + "Tax: " + string.Format("{0,10:c}", TaxTotal);
-            result += "\n" + "Total: " + string.Format("{0,10:c}", Total);
-            result += "\n" + new string('*', 60);
+            result += "\n" + "Product:" + string.Format(format,ProductType);
+            result += "\n" + "Materials:" + string.Format(format, MaterialCost);
+            result += "\n" + "Labor:\t" + string.Format(format, LaborCost);
+            result += "\n" + "Tax:\t" + string.Format(format, TaxTotal);
+            result += "\n" + "Total:\t" + string.Format(format, Total);
+            result += "\n" + new string('*', 27);
             return result;
 
         }
