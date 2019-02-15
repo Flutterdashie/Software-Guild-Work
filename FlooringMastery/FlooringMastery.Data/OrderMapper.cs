@@ -1,6 +1,7 @@
 ﻿using FlooringMastery.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -58,7 +59,9 @@ namespace FlooringMastery.Data
 
         private static string GetPathByDate(DateTime date)
         {
-            return @".\Orders_" + date.ToString("MMddyyyy") + ".txt";
+            return ConfigurationManager.AppSettings.Get("FileTestMode") == "true"
+                ? @"C:\Users\Jacob\Documents\bitbucket\jacob-harris-individual-work\FlooringMastery\FlooringMastery\bin\Debug\Orders_" + date.ToString("MMddyyyy") + ".txt"
+                : @".\Orders_" + date.ToString("MMddyyyy") + ".txt";
         }
 
         /// <summary>

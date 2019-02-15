@@ -1,6 +1,7 @@
 ﻿using FlooringMastery.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace FlooringMastery.Data
         public static List<State> GetStates()
         {
             List<State> result = new List<State>();
-            List<string> lines =File.ReadAllLines(@".\taxes.txt").ToList();
+            List<string> lines =File.ReadAllLines(GetPath()).ToList();
             if (lines.First() == "StateAbbreviation,StateName,TaxRate")
             {
                 lines.RemoveAt(0);
@@ -28,6 +29,12 @@ namespace FlooringMastery.Data
                 result.Add(new State(values[1], values[0], decimal.Parse(values[2])));
             }
             return result;
+        }
+        private static string GetPath()
+        {
+            return ConfigurationManager.AppSettings.Get("FileTestMode") == "true"
+                ? @"C:\Users\Jacob\Documents\bitbucket\jacob-harris-individual-work\FlooringMastery\FlooringMastery\bin\Debug\taxes.txt"
+                : @".\taxes.txt";
         }
     }
 }
