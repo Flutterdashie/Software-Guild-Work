@@ -180,9 +180,20 @@ namespace FlooringMastery.UI
 
         public string GetString(string prompt)
         {
-            //TODO: Test for empty string
-            Console.WriteLine(prompt);
-            return Console.ReadLine();
+            bool validInput = false;
+            string userIn = "";
+            do
+            {
+
+                Console.WriteLine(prompt);
+                userIn = Console.ReadLine();
+                validInput = !string.IsNullOrWhiteSpace(userIn);
+                if (!validInput)
+                {
+                    Console.WriteLine("String must not be empty.");
+                }
+            } while (!validInput);
+            return userIn;
         }
 
         public void DisplayMenu()
@@ -199,6 +210,25 @@ namespace FlooringMastery.UI
             Console.WriteLine(new string('*', 27));
         }
 
+        public string PromptReplaceName(string prompt, string oldName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Product PromptReplaceProduct(string prompt, Product oldProduct, IEnumerable<Product> validProducts)
+        {
+            throw new NotImplementedException();
+        }
+
+        public State PromptReplaceState(string prompt, State oldState, IEnumerable<State> validStates)
+        {
+            throw new NotImplementedException();
+        }
+
+        public decimal PromptReplaceArea(string prompt, decimal oldArea)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

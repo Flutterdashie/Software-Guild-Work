@@ -67,5 +67,14 @@ namespace FlooringMastery.Models
         State GetState(string prompt, IEnumerable<State> validStates);
 
         string GetString(string prompt);
+
+        string PromptReplaceName(string prompt, string oldName);
+
+        Product PromptReplaceProduct(string prompt, Product oldProduct, IEnumerable<Product> validProducts);
+
+        State PromptReplaceState(string prompt, State oldState, IEnumerable<State> validStates);
+
+        decimal PromptReplaceArea(string prompt, decimal oldArea);
+
     }
 }

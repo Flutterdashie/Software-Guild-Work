@@ -27,7 +27,7 @@ namespace FlooringMastery.UI.Workflows
                 io.WriteLine("Search result:");
                 io.WriteLine(target.GetFullOrderString());
                 //TODO: Actually allow editing.
-                target = MakeEdits(io, target);
+                target = MakeEdits(io, target,manager);
 
                 io.WriteLine(target.GetFullOrderString());
 
@@ -51,9 +51,24 @@ namespace FlooringMastery.UI.Workflows
             io.WaitForUser("Press any key to continue...");
         }
 
-        private Order MakeEdits(IUserIO io, Order target)
+        private Order MakeEdits(IUserIO io, Order target, OrderManager manager)
         {
-            io.WriteLine("Haha, joke's on you! No editing allowed!");
+            target.UpdateName(io.PromptReplaceName("Enter customer name",target.Name));
+            bool orderChanged = false;
+            //TODO: Maybe fix the state handling, I dunno.
+            State oldState = new State("unknown", target.StateAbbr, target.TaxRate);
+            State newState = io.PromptReplaceState("Enter order state", oldState, manager.GetStates());
+            orderChanged |= oldState.StateAbbr != newState.StateAbbr;
+            Product oldProduct = new Product(target.ProductType, target.CostPSF, target.LaborCostPSF);
+            Product newProduct = io.PromptReplaceProduct("Enter product", oldProduct, manager.GetProducts());
+            orderChanged |= !oldProduct.ProductType.Equals(newProduct.ProductType, StringComparison.CurrentCultureIgnoreCase);
+            decimal newArea = io.PromptReplaceArea("Enter area", target.Area);
+            orderChanged |= target.Area != newArea;
+            
+            if(orderChanged)
+            {
+                target.Recalculate(newProduct, newState, newArea);
+            }
             return target;
         }
     }
