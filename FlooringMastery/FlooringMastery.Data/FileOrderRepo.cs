@@ -73,13 +73,13 @@ namespace FlooringMastery.Data
         public void SaveOrder(Order order)
         {
             List<Order> orders = GetOrdersByDate(order.Date).ToList();
-            if (orders.Count() == 0 || !orders.Contains(order))
+            if (orders.Count() == 0 || !orders.Exists(o => o.OrderNum == order.OrderNum))
             {
                 orders.Add(order);
             }
             else
             {
-                int index = orders.IndexOf(order);
+                int index = orders.FindIndex(o => o.OrderNum == order.OrderNum);
                 orders[index] = order;
             }
             OrderMapper.WriteAllToDate(order.Date, orders);

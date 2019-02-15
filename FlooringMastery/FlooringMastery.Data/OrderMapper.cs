@@ -19,7 +19,15 @@ namespace FlooringMastery.Data
         /// <exception cref="FormatException">One of the lines failed to pass through the parser. Invalid data source.</exception>
         public static IEnumerable<Order> ReadAllFromDate(DateTime date)
         {
-            string[] lines  = File.ReadAllLines(GetPathByDate(date));
+            List<string> lines  = File.ReadAllLines(GetPathByDate(date)).ToList();
+            if(lines.First() == "OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total")
+            {
+                lines.RemoveAt(0);
+            }
+            else
+            {
+                throw new FormatException($"Header line of {GetPathByDate(date)} is missing or invalid. Your file may have been compromised.");
+            }
             List<Order> result = new List<Order>();
             foreach (string line in lines)
             {
@@ -31,11 +39,12 @@ namespace FlooringMastery.Data
         public static void WriteAllToDate(DateTime date, IEnumerable<Order> orders)
         {
             List<string> lines = new List<string>();
+            lines.Add("OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total");
             foreach (Order order in orders)
             {
                 lines.Add(ToLine(order));
             }
-            if(lines.Count == 0)
+            if(lines.Count == 1)
             {
                 File.Delete(GetPathByDate(date));
             }

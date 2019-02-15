@@ -23,19 +23,20 @@ namespace FlooringMastery.UI.Workflows
             string result = "";
             if (manager.TryGetOrder(targetNum, targetDate, out Order target))
             {
+                Order pendingChanges = target;
                 io.Clear();
                 io.WriteLine("Search result:");
                 io.WriteLine(target.GetFullOrderString());
                 //TODO: Actually allow editing.
-                target = MakeEdits(io, target,manager);
+                pendingChanges = MakeEdits(io, target,manager);
 
-                io.WriteLine(target.GetFullOrderString());
+                io.WriteLine(pendingChanges.GetFullOrderString());
 
                 bool confirm = io.GetBool("Are you sure you would like to make these changes?");
 
                 if (confirm)
                 {
-                    manager.SaveValidOrder(target);
+                    manager.SaveValidOrder(pendingChanges);
                     result = "Edits saved.";
                 }
                 else
@@ -53,7 +54,8 @@ namespace FlooringMastery.UI.Workflows
 
         private Order MakeEdits(IUserIO io, Order target, OrderManager manager)
         {
-            target.UpdateName(io.PromptReplaceName("Enter customer name",target.Name));
+            string newName = io.PromptReplaceName("Enter customer name",target.Name);
+            bool nameChanged = !target.Name.Equals(newName);
             bool orderChanged = false;
             //TODO: Maybe fix the state handling, I dunno.
             State oldState = new State("unknown", target.StateAbbr, target.TaxRate);
@@ -64,10 +66,16 @@ namespace FlooringMastery.UI.Workflows
             orderChanged |= !oldProduct.ProductType.Equals(newProduct.ProductType, StringComparison.CurrentCultureIgnoreCase);
             decimal newArea = io.PromptReplaceArea("Enter area", target.Area);
             orderChanged |= target.Area != newArea;
-            
             if(orderChanged)
             {
-                target.Recalculate(newProduct, newState, newArea);
+                Order newOrder =  new Order(target.Date, newName, newState, newProduct, newArea);
+                newOrder.UpdateNum(target.OrderNum);
+                return newOrder;
+            } else if(nameChanged)
+            {
+                Order newOrder =new Order(target.Date, newName, oldState, oldProduct, target.Area);
+                newOrder.UpdateNum(target.OrderNum);
+                return newOrder;
             }
             return target;
         }

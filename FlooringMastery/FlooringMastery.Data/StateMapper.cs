@@ -13,8 +13,16 @@ namespace FlooringMastery.Data
         public static List<State> GetStates()
         {
             List<State> result = new List<State>();
-            string[] lines =File.ReadAllLines(@".\taxes.txt");
-            foreach(string line in lines)
+            List<string> lines =File.ReadAllLines(@".\taxes.txt").ToList();
+            if (lines.First() == "StateAbbreviation,StateName,TaxRate")
+            {
+                lines.RemoveAt(0);
+            }
+            else
+            {
+                throw new FormatException("Header line of tax file is missing or invalid. Your file may have been compromised.");
+            }
+            foreach (string line in lines)
             {
                 string[] values = line.Split(',');
                 result.Add(new State(values[1], values[0], decimal.Parse(values[2])));

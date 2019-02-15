@@ -161,6 +161,14 @@ namespace FlooringMastery.UI
             do
             {
                 Console.WriteLine(prompt);
+                Console.Write("Valid state abbreviations:");
+                char delimiter = ' ';
+                foreach(State state in validStates)
+                {
+                    Console.Write(delimiter.ToString() + state.StateAbbr);
+                    delimiter = ',';
+                }
+                Console.WriteLine();
                 string userIn = Console.ReadLine().Trim();
                 var query = from s in validStates
                             where s.StateAbbr.Equals(userIn, StringComparison.CurrentCultureIgnoreCase) || s.StateName.Equals(userIn, StringComparison.CurrentCultureIgnoreCase)
@@ -212,22 +220,122 @@ namespace FlooringMastery.UI
 
         public string PromptReplaceName(string prompt, string oldName)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(prompt + $" ({oldName}): ");
+                string userIn;
+                bool firstTime = true;
+                do
+                {
+                    if (!firstTime)
+                    {
+                        Console.WriteLine("Invalid input. Names may only contain letters, numbers, spaces, commas, and periods.");
+                    }
+                Console.WriteLine(prompt + $" ({oldName}): ");
+                userIn = Console.ReadLine();
+                if(string.IsNullOrEmpty(userIn))
+                {
+                    Console.WriteLine("No input detected. Using previous name...");
+                    return oldName;
+                }
+                    firstTime = false;
+                } while (!userIn.All(c => Char.IsLetterOrDigit(c) || c == ' ' || c == ',' || c == '.'));
+                return userIn;
         }
 
         public Product PromptReplaceProduct(string prompt, Product oldProduct, IEnumerable<Product> validProducts)
         {
-            throw new NotImplementedException();
+            string productFormat = "{0,-20} | {1,12:C} | {2,12:C}";
+            string userInput;
+
+            do
+            {
+
+                Console.ResetColor();
+                Console.WriteLine(productFormat, "Description", "$/sqft", "Labor $/sqft");
+                foreach (Product product in validProducts)
+                {
+                    Console.WriteLine(productFormat, product.ProductType, product.CostPerSquareFoot, product.LaborCostPerSquareFoot);
+                }
+                Console.WriteLine(prompt + $" ({ oldProduct.ProductType}): ");
+                userInput = Console.ReadLine();
+                if(string.IsNullOrEmpty(userInput) || userInput.Equals(oldProduct.ProductType,StringComparison.CurrentCultureIgnoreCase))
+                {
+                    Console.WriteLine("No new input detected. Using previous product...");
+                    return oldProduct;
+                }
+                //Slight shortcut, just prevents me writing this mess out in both lines. Probably not a good idea, but nice proof of concept.
+                bool MatchesName(Product p) => p.ProductType.Equals(userInput, StringComparison.CurrentCultureIgnoreCase);
+                if (validProducts.Count(MatchesName) == 1)
+                {
+                    return validProducts.First(MatchesName);
+                }
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invalid product. Please try again.");
+            } while (true);
         }
 
         public State PromptReplaceState(string prompt, State oldState, IEnumerable<State> validStates)
         {
-            throw new NotImplementedException();
+            do
+            {
+                Console.WriteLine(prompt + $" ({ oldState.StateAbbr}): ");
+                Console.Write("Valid state abbreviations:");
+                string delimiter = " ";
+                foreach (State state in validStates)
+                {
+                    Console.Write(delimiter.ToString() + state.StateAbbr);
+                    delimiter = ", ";
+                }
+                Console.WriteLine();
+                string userIn = Console.ReadLine().Trim();
+                if (string.IsNullOrEmpty(userIn) || userIn.Equals(oldState.StateAbbr, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    Console.WriteLine("No new input detected. Using previous product...");
+                    return oldState;
+                }
+                var query = from s in validStates
+                            where s.StateAbbr.Equals(userIn, StringComparison.CurrentCultureIgnoreCase) || s.StateName.Equals(userIn, StringComparison.CurrentCultureIgnoreCase)
+                            select s;
+                if (query.Count() != 1)
+                {
+                    Console.WriteLine("Invalid input. State is either nonexistant, or not currently available for sales.");
+                    continue;
+                }
+                else
+                {
+                    return query.First();
+                }
+            } while (true);
         }
 
         public decimal PromptReplaceArea(string prompt, decimal oldArea)
         {
-            throw new NotImplementedException();
+            bool validInput = false;
+            decimal result = 0;
+            string userIn;
+            do
+            {
+
+                Console.WriteLine(prompt + $" ({ oldArea}): ");
+                userIn = Console.ReadLine();
+                if(string.IsNullOrEmpty(userIn))
+                {
+                    Console.WriteLine("No new input detected. Using previous area...");
+                    return oldArea;
+                }
+                validInput = decimal.TryParse(userIn, out result);
+                if (!validInput)
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid decimal.");
+                }
+                else if (result < 100)
+                {
+                    Console.WriteLine("Invalid input. Minimum order size is 100 square feet.");
+                    validInput = false;
+                }
+
+            } while (!validInput);
+            return result;
         }
     }
 }

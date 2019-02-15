@@ -13,7 +13,17 @@ namespace FlooringMastery.Data
         public static List<Product> GetAllProducts()
         {
             List<Product> result = new List<Product>();
-            string[] lines = File.ReadAllLines(@".\Products.txt");
+            List<string> lines = File.ReadAllLines(@".\Products.txt").ToList();
+            if (lines.First() == "ProductType,CostPerSquareFoot,LaborCostPerSquareFoot")
+            {
+                lines.RemoveAt(0);
+            }
+            else
+            {
+                throw new FormatException("Header line of product file is missing or invalid. Your file may have been compromised.");
+            }
+
+
             foreach (string line in lines)
             {
                 string[] values = line.Split(',');
