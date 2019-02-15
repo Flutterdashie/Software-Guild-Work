@@ -162,12 +162,7 @@ namespace FlooringMastery.UI
             {
                 Console.WriteLine(prompt);
                 Console.Write("Valid state abbreviations:");
-                char delimiter = ' ';
-                foreach(State state in validStates)
-                {
-                    Console.Write(delimiter.ToString() + state.StateAbbr);
-                    delimiter = ',';
-                }
+                DisplayStates(validStates);
                 Console.WriteLine();
                 string userIn = Console.ReadLine().Trim();
                 var query = from s in validStates
@@ -279,14 +274,7 @@ namespace FlooringMastery.UI
             do
             {
                 Console.WriteLine(prompt + $" ({ oldState.StateAbbr}): ");
-                Console.Write("Valid state abbreviations:");
-                string delimiter = " ";
-                foreach (State state in validStates)
-                {
-                    Console.Write(delimiter.ToString() + state.StateAbbr);
-                    delimiter = ", ";
-                }
-                Console.WriteLine();
+                DisplayStates(validStates);
                 string userIn = Console.ReadLine().Trim();
                 if (string.IsNullOrEmpty(userIn) || userIn.Equals(oldState.StateAbbr, StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -336,6 +324,17 @@ namespace FlooringMastery.UI
 
             } while (!validInput);
             return result;
+        }
+
+        private void DisplayStates(IEnumerable<State> states)
+        {
+            Console.Write("Valid state abbreviations:");
+            string delimiter = " ";
+            foreach (State state in states)
+            {
+                Console.Write(delimiter.ToString() + state.StateAbbr);
+                delimiter = ", ";
+            }
         }
     }
 }

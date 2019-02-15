@@ -38,8 +38,10 @@ namespace FlooringMastery.Data
         
         public static void WriteAllToDate(DateTime date, IEnumerable<Order> orders)
         {
-            List<string> lines = new List<string>();
-            lines.Add("OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total");
+            List<string> lines = new List<string>
+            {
+                "OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total"
+            };
             foreach (Order order in orders)
             {
                 lines.Add(ToLine(order));

@@ -51,28 +51,6 @@ namespace FlooringMastery.Models
             CalculateTotals();
         }
 
-        //TODO: Pick one of these to actually use
-        public void Recalculate(string productType, decimal costPSF, decimal laborCostPSF, string stateAbbr, decimal taxRate, decimal area)
-        {
-            this.ProductType = productType;
-            this.CostPSF = costPSF;
-            this.LaborCostPSF = laborCostPSF;
-            this.StateAbbr = stateAbbr;
-            this.TaxRate = taxRate;
-            this.Area = area;
-            CalculateTotals();
-        }
-
-        public void Recalculate(Product product, State state, decimal area)
-        {
-            this.StateAbbr = state.StateAbbr;
-            this.TaxRate = state.TaxRate;
-            this.ProductType = product.ProductType;
-            this.CostPSF = product.CostPerSquareFoot;
-            this.LaborCostPSF = product.LaborCostPerSquareFoot;
-            this.Area = area;
-            CalculateTotals();
-        }
 
         private void CalculateTotals()
         {

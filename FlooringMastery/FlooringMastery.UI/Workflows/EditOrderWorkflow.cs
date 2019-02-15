@@ -27,7 +27,7 @@ namespace FlooringMastery.UI.Workflows
                 io.Clear();
                 io.WriteLine("Search result:");
                 io.WriteLine(target.GetFullOrderString());
-                //TODO: Actually allow editing.
+                //TODO: Clean this WAYYYYYYYY up.
                 pendingChanges = MakeEdits(io, target,manager);
 
                 io.WriteLine(pendingChanges.GetFullOrderString());
@@ -57,7 +57,6 @@ namespace FlooringMastery.UI.Workflows
             string newName = io.PromptReplaceName("Enter customer name",target.Name);
             bool nameChanged = !target.Name.Equals(newName);
             bool orderChanged = false;
-            //TODO: Maybe fix the state handling, I dunno.
             State oldState = new State("unknown", target.StateAbbr, target.TaxRate);
             State newState = io.PromptReplaceState("Enter order state", oldState, manager.GetStates());
             orderChanged |= oldState.StateAbbr != newState.StateAbbr;
