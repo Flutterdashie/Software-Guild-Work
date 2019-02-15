@@ -1,8 +1,4 @@
-﻿using FlooringMastery.BLL;
-using FlooringMastery.Data;
-using FlooringMastery.Models;
-using FlooringMastery.UI;
-using FlooringMastery.UI.Workflows;
+﻿using FlooringMastery.UI;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
