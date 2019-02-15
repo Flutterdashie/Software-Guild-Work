@@ -215,7 +215,6 @@ namespace FlooringMastery.UI
 
         public string PromptReplaceName(string prompt, string oldName)
         {
-            Console.WriteLine(prompt + $" ({oldName}): ");
                 string userIn;
                 bool firstTime = true;
                 do
