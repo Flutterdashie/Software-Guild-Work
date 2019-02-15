@@ -161,7 +161,6 @@ namespace FlooringMastery.UI
             do
             {
                 Console.WriteLine(prompt);
-                Console.Write("Valid state abbreviations:");
                 DisplayStates(validStates);
                 Console.WriteLine();
                 string userIn = Console.ReadLine().Trim();

@@ -18,8 +18,8 @@ namespace FlooringMastery.UI.Workflows
             io.Clear();
             io.WriteLine("Order Removal");
             io.WriteLine(new string('*', 27));
-            int targetNum = io.GetInt("Enter the order number to remove: ");
             DateTime targetDate = io.GetDate("Enter the date of the order to remove: ").Date;
+            int targetNum = io.GetInt("Enter the order number to remove: ");
             string result = "";
             if (manager.TryGetOrder(targetNum,targetDate, out Order target))
             {
