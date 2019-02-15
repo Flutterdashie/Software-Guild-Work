@@ -19,18 +19,24 @@ namespace FlooringMastery.BLL
 
         public string GetAllOrders(DateTime date)
         {
-            List<Order> orders = _repo.GetOrdersByDate(date).ToList();
-            if (orders.Count() == 0)
+            try
             {
-                return "There are no orders on the given date.";
-            }
-            string result = orders[0].GetFullOrderString();
-            for(int i = 1; i < orders.Count; i++)
+                List<Order> orders = _repo.GetOrdersByDate(date).ToList();
+                if (orders.Count() == 0)
+                {
+                    return "There are no orders on the given date.";
+                }
+                string result = orders[0].GetFullOrderString();
+                for (int i = 1; i < orders.Count; i++)
+                {
+                    result = result.TrimEnd('*');
+                    result += orders[i].GetFullOrderString();
+                }
+                return result;
+            } catch (Exception)
             {
-                result = result.TrimEnd('*');
-                result += orders[i].GetFullOrderString();
+                return "The order file for the given date is corrupt or cannot be read. Please contact IT if this issue persists.";
             }
-            return result;
         }
 
         public bool TryGetOrder(int orderNum, DateTime orderDate, out Order order)

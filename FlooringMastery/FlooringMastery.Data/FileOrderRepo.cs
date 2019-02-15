@@ -63,7 +63,7 @@ namespace FlooringMastery.Data
         public void RemoveOrder(Order order)
         {
             List<Order> orders = GetOrdersByDate(order.Date).ToList();
-            if(!orders.Remove(order)) 
+            if(orders.RemoveAll(o => o.OrderNum == order.OrderNum) != 1) 
             {
                 throw new InvalidOperationException();
             }
