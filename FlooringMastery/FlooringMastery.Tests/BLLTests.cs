@@ -36,18 +36,55 @@ namespace FlooringMastery.Tests
 
         }
 
+        [TestCase(2013,1,1,3)]
+        [TestCase(2000,1,1,1)]
         public void OrderNumUpdates(int year, int month, int day, int expectedNum)
         {
             Product testProd = new Product("whee",1.0m,1.0m);
             State testState = new State("Rawr","XD",5.00m);
             DateTime testDate = new DateTime(year, month, day);
             Order order = new Order(testDate,"TestGuy",testState,testProd,100.0m);
-            //TODO: Finish order num test
+            OrderManager manager = new OrderManager(new TestOrderRepo());
+            int resultNum = manager.ValidateNewOrder(order).OrderNum;
+            Assert.AreEqual(expectedNum, resultNum);
         }
 
-        //TODO: Test order saving
+        [TestCase(2000,1,1)]
+        [TestCase(1000,1,1)]
+        public void OrderSaveDeleteTest(int year, int month, int day)
+        {
+            //Currently, these two tests are run together to ensure that the test environment remains clean.
+            Product testProd = new Product("whee", 1.0m, 1.0m);
+            State testState = new State("Rawr", "XD", 5.00m);
+            DateTime testDate = new DateTime(year, month, day);
+            OrderManager manager = new OrderManager(new TestOrderRepo());
 
-        //TODO: Test order deletion
+            Order order = manager.ValidateNewOrder(new Order(testDate, "TestGuy", testState, testProd, 100.0m));
+            if(manager.TryGetOrder(order.OrderNum,testDate,out Order junk))
+            {
+                Assert.Fail("Order number already exists. ValidateNewOrder may be broken.");
+            }
+
+            manager.SaveValidOrder(order);
+            Assert.IsTrue(manager.TryGetOrder(order.OrderNum, testDate, out Order resultOrder));
+            Assert.AreEqual(order.GetFullOrderString(), resultOrder.GetFullOrderString());
+
+            //Successful delete
+            Assert.AreEqual("Order deleted successfully.", manager.DeleteOrder(order));
+            if (manager.TryGetOrder(order.OrderNum, testDate, out Order junk2))
+            {
+                Assert.Fail("Order number still exists after deletion.");
+
+            }
+
+            //Can't delete something that was just deleted already
+            Assert.AreEqual("Order was not found. Please contact IT.", manager.DeleteOrder(order));
+
+
+
+        }
+
+
 
     }
 }
