@@ -40,6 +40,7 @@ namespace FlooringMastery.UI.Workflows
 
         private DateTime GetFutureDate(IUserIO io)
         {
+            //TODO: move to UI
             DateTime target;
             bool firstTry = true;
             do
@@ -56,6 +57,7 @@ namespace FlooringMastery.UI.Workflows
 
         private string GetCustomerName(IUserIO io)
         {
+            //TODO: Move to UI
             string userIn;
             bool firstTime = true;
             do

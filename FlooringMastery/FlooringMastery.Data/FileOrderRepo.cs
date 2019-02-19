@@ -73,7 +73,7 @@ namespace FlooringMastery.Data
         public void SaveOrder(Order order)
         {
             List<Order> orders = GetOrdersByDate(order.Date).ToList();
-            if (orders.Count() == 0 || !orders.Exists(o => o.OrderNum == order.OrderNum))
+            if (!orders.Exists(o => o.OrderNum == order.OrderNum))
             {
                 orders.Add(order);
             }

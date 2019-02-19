@@ -57,14 +57,18 @@ namespace FlooringMastery.UI.Workflows
             string newName = io.PromptReplaceName("Enter customer name",target.Name);
             bool nameChanged = !target.Name.Equals(newName);
             bool orderChanged = false;
+
             State oldState = new State("unknown", target.StateAbbr, target.TaxRate);
             State newState = io.PromptReplaceState("Enter order state", oldState, manager.GetStates());
             orderChanged |= oldState.StateAbbr != newState.StateAbbr;
+
             Product oldProduct = new Product(target.ProductType, target.CostPSF, target.LaborCostPSF);
             Product newProduct = io.PromptReplaceProduct("Enter product", oldProduct, manager.GetProducts());
             orderChanged |= !oldProduct.ProductType.Equals(newProduct.ProductType, StringComparison.CurrentCultureIgnoreCase);
+
             decimal newArea = io.PromptReplaceArea("Enter area", target.Area);
             orderChanged |= target.Area != newArea;
+
             if(orderChanged)
             {
                 Order newOrder =  new Order(target.Date, newName, newState, newProduct, newArea);

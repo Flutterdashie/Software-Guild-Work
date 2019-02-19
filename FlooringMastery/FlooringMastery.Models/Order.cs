@@ -38,6 +38,8 @@ namespace FlooringMastery.Models
             this.TaxTotal = taxTotal;
             this.Total = total;
         }
+
+
         public Order(DateTime date, string name, State state, Product product, decimal area)
         {
             this.Date = date;
