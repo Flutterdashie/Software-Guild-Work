@@ -1,5 +1,6 @@
 $(document).ready(function() {
     'use strict';
+    $('#goAwayFloatingPoint').val(0);
     populateItems();
 });
 
@@ -49,4 +50,9 @@ function populateItems () {
             alert('Out of Order!');
         }
     });
+}
+
+function addMoney(amount) {
+    $('#goAwayFloatingPoint').val(parseInt($('#goAwayFloatingPoint').val()) + amount);
+    $('#money').text(($('#goAwayFloatingPoint').val() * 0.01).toFixed(2));
 }

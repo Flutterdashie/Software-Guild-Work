@@ -26,10 +26,10 @@
                     <div class="h2">Total $ In</div>
                     <div class="h2 bg-light border-dark">$<span id="money">0.00</span></div>
                     <div class="border-dark row">
-                        <button class="btn btn-primary col-6" onclick="addDollar">Add Dollar</button>
-                        <button class="btn btn-primary col-6" onclick="addQuarter">Add Quarter</button>
-                        <button class="btn btn-primary col-6" onclick="addDime">Add Dime</button>
-                        <button class="btn btn-primary col-6" onclick="addNickel">Add Nickel</button>
+                        <button class="btn btn-primary col-6" onclick="addMoney(100)">Add Dollar</button>
+                        <button class="btn btn-primary col-6" onclick="addMoney(25)">Add Quarter</button>
+                        <button class="btn btn-primary col-6" onclick="addMoney(10)">Add Dime</button>
+                        <button class="btn btn-primary col-6" onclick="addMoney(5)">Add Nickel</button>
                     </div>
                 </div>
             </div>
@@ -42,6 +42,7 @@
         </div>
     </div>
 </div>
+<input type="number" hidden value="0" id="goAwayFloatingPoint">
 
         <!-- <input type="number" value="1" id="quarters">
         <input type="number" value="1" id="dimes">
