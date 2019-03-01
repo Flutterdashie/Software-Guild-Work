@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    //alert(convertToMoney($('#quarters'),$('#dimes'),$('#nickels'),$('#pennies')));
+    populateItems();
 });
 
 function convertToMoney(quarters,dimes,nickels,pennies) {
@@ -31,10 +31,10 @@ function populateItems () {
         success: function (data) {
             $('#itemBoxes').text('');
             $.each(data, function(index,item) {
-                var itemDiv = '<div class="col-4 px-5 border bg-light" id="item';
+                var itemDiv = '<div class="col-4 border bg-light" id="item';
                 itemDiv += item.id;
                 itemDiv += '">';
-                itemDiv += '<div class="text-left" style="font-size:10pt">';
+                itemDiv += '<div class="text-left" style="font-size:10pt;">';
                 itemDiv += item.id;
                 itemDiv += '</div>';
                 itemDiv += '<div class="text-center">';
@@ -50,7 +50,7 @@ function populateItems () {
             })
         },
         error: function () {
-            alert('no u');
+            alert('Out of Order!');
         }
     });
 }
