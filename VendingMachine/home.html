@@ -7,7 +7,11 @@
 
     <body>
 <div class="container">
-    <div class="row"></div>
+    <div class="row">
+        <div class="col-12">
+            <h1 style="text-align: center">Vending Machine</h1>
+        </div>
+    </div>
     <div class="row">
         <div class="col-9">
             <div class="row" id="itemBoxes">
@@ -16,14 +20,33 @@
                 </div>
             </div>
     </div>
-        <div class="col-3"></div>
+        <div class="col-3">
+            <div class="row" id="moneyIn">
+                <div class="col text-center">
+                    <div class="h2">Total $ In</div>
+                    <div class="h2 bg-light border-dark">$<span id="money">0.00</span></div>
+                    <div class="border-dark row">
+                        <button class="btn btn-primary col-6" onclick="addDollar">Add Dollar</button>
+                        <button class="btn btn-primary col-6" onclick="addQuarter">Add Quarter</button>
+                        <button class="btn btn-primary col-6" onclick="addDime">Add Dime</button>
+                        <button class="btn btn-primary col-6" onclick="addNickel">Add Nickel</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="messages">
+                <div style="width:100%; height:100px; background-color:aliceblue;">Messages Box</div>
+            </div>
+            <div class="row" id="change">
+                <div style="width:100%; height:100px; background-color:aliceblue;">Change Box</div>
+            </div>
+        </div>
     </div>
 </div>
 
-        <input type="number" value="1" id="quarters">
+        <!-- <input type="number" value="1" id="quarters">
         <input type="number" value="1" id="dimes">
         <input type="number" value="1" id="nickels">
-        <input type="number" value="1" id="pennies">
+        <input type="number" value="1" id="pennies"> -->
 
         <script src="js/jquery-2.2.4.min.js"></script>
         <script src="js/bootstrap.js"></script>

@@ -1,11 +1,7 @@
-$(document).ready(function(){
+$(document).ready(function() {
+    'use strict';
     populateItems();
 });
-
-function convertToMoney(quarters,dimes,nickels,pennies) {
-    return ((parseInt(quarters.val()) * 25 + parseInt(dimes.val()) * 10 + parseInt(nickels.val()) * 5 + parseInt(pennies.val()) ) * 0.01).toFixed(2);
-}
-
 
 function buyItem(money, itemID) {
     'use strict';
