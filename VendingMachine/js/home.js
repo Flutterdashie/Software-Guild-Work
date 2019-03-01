@@ -31,13 +31,20 @@ function populateItems () {
         success: function (data) {
             $('#itemBoxes').text('');
             $.each(data, function(index,item) {
-                var itemDiv = '<div class="col-4" id="item';
+                var itemDiv = '<div class="col-4 px-5 border bg-light" id="item';
                 itemDiv += item.id;
                 itemDiv += '">';
-                itemDiv += '<span class="text-left" style="font-size:8pt">';
+                itemDiv += '<div class="text-left" style="font-size:10pt">';
                 itemDiv += item.id;
-                itemDiv += '</span>';
-                
+                itemDiv += '</div>';
+                itemDiv += '<div class="text-center">';
+                itemDiv += item.name;
+                itemDiv += '<br/>$'
+                itemDiv += parseFloat(item.price).toFixed(2);
+                itemDiv += '<br/>Quantity Left: ';
+                itemDiv += item.quantity;
+                itemDiv += '</div>';
+
                 itemDiv += "</div>";
                 $('#itemBoxes').append(itemDiv);
             })
