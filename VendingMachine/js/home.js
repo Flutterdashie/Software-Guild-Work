@@ -53,7 +53,7 @@ function populateItems () {
                 itemDiv += '</div>';
                 itemDiv += '<div class="text-center">';
                 itemDiv += item.name;
-                itemDiv += '<br/>$'
+                itemDiv += '<br/>$';
                 itemDiv += parseFloat(item.price).toFixed(2);
                 itemDiv += '<br/>Quantity Left: ';
                 itemDiv += item.quantity;
@@ -61,7 +61,7 @@ function populateItems () {
 
                 itemDiv += "</div>";
                 $('#itemBoxes').append(itemDiv);
-            })
+            });
         },
         error: function () {
             alert('Out of Order!');
