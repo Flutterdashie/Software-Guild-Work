@@ -14,13 +14,16 @@
     <div class="col-xs-12">
         @using (Html.BeginForm())
         {
+            @Html.ValidationSummary(true)
             <div class="form-group">
                 <label>State Abbreviation</label>
-                @Html.TextBoxFor(m => m.StateAbbreviation, new { @class = "form-control", placeholder = "Abbr" })
+                @Html.TextBoxFor(m => m.StateAbbreviation, new { @class = "form-control", placeholder = "Abbr", pattern = "[A-Z]{2}", required = true, maxlength = "2", title = "Capitalized 2-Letter State Abbreviation" })
+                @Html.ValidationMessageFor(m => m.StateAbbreviation)
             </div>
             <div class="form-group">
                 <label>State Name</label>
-                @Html.TextBoxFor(m => m.StateName, new { @class = "form-control", placeholder = "State Name" })
+                @Html.TextBoxFor(m => m.StateName, new { @class = "form-control", placeholder = "State Name", pattern = @"\w+(\s\w+)?", required = true, title = "US State Name" })
+                @Html.ValidationMessageFor(m => m.StateName)
             </div>
             <button type="submit" class="btn btn-sm btn-primary">Save</button>
         }

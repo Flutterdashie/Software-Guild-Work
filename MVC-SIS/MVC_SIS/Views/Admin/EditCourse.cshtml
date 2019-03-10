@@ -16,10 +16,11 @@
         @using (Html.BeginForm())
         {
             @Html.HiddenFor(m => m.CourseId)
-            <div class="form-group">
-                <label>Course</label>
-                @Html.TextBoxFor(m => m.CourseName, new { @class = "form-control", placeholder = "Course" })
-            </div>
+        <div class="form-group">
+            <label>Course</label>
+            @Html.TextBoxFor(m => m.CourseName, new { @class = "form-control", placeholder = "Course", required = true })
+            @Html.ValidationMessageFor(m => m.CourseName)
+        </div>
             <button type="submit" class="btn btn-sm btn-primary">Save</button>
         }
     </div>

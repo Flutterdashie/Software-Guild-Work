@@ -140,7 +140,6 @@
     <Compile Include="Models\Repositories\MajorRepository.cs" />
     <Compile Include="Models\Repositories\StateRepository.cs" />
     <Compile Include="Models\Repositories\StudentRepository.cs" />
-    <Compile Include="Models\ViewModels\StudentEditVM.cs" />
     <Compile Include="Models\ViewModels\StudentVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
