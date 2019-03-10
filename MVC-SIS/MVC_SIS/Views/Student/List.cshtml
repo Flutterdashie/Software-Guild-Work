@@ -30,7 +30,7 @@
                                 <td>@student.FirstName</td>
                                 <td>@student.LastName</td>
                                 <td>@student.Major.MajorName</td>
-                                <td>@student.GPA</td>
+                                <td>@student.GPA.ToString("F2")</td>
                                 <td>@Html.ActionLink("Edit", "Edit", "Student", new { id = student.StudentId }, null)</td>
                                 <td>@Html.ActionLink("Delete", "Delete", "Student", new { id = student.StudentId }, null)</td>
                             </tr>
