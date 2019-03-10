@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Exercises.Models.Data;
 using Exercises.Models.ViewModels;
+using Exercises.Models.Binders;
 
 namespace Exercises.Controllers
 {
@@ -50,10 +51,25 @@ namespace Exercises.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int studentId)
+        public ActionResult Edit(int id)
         {
-            Student model = StudentRepository.Get(studentId);
-            return View(model);
+            StudentVM viewModel = new StudentVM
+            {
+                Student = StudentRepository.Get(id)
+            };
+            viewModel.SetCourseItems(CourseRepository.GetAll());
+            viewModel.SetMajorItems(MajorRepository.GetAll());
+            viewModel.SetStateItems(StateRepository.GetAll());
+            viewModel.SelectedCourseIds = (from course in viewModel.Student.Courses
+                                           select course.CourseId).ToList();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult EditAddress([ModelBinder(typeof(AddressBinder))]AddressVM address)
+        {
+            StudentRepository.SaveAddress(address.StudentId, address.Address);
+            return Edit(address.StudentId);
         }
     }
 }
