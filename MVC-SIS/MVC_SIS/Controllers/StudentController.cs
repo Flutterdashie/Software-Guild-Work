@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.Mvc;
 using Exercises.Models.Data;
 using Exercises.Models.ViewModels;
-using Exercises.Models.Binders;
 
 namespace Exercises.Controllers
 {
@@ -60,16 +59,44 @@ namespace Exercises.Controllers
             viewModel.SetCourseItems(CourseRepository.GetAll());
             viewModel.SetMajorItems(MajorRepository.GetAll());
             viewModel.SetStateItems(StateRepository.GetAll());
-            viewModel.SelectedCourseIds = (from course in viewModel.Student.Courses
+            if (viewModel.Student.Courses != null)
+            {
+                viewModel.SelectedCourseIds = (from course in viewModel.Student.Courses
                                            select course.CourseId).ToList();
+            } else
+            {
+                viewModel.SelectedCourseIds = new List<int>();
+            }
+
             return View(viewModel);
         }
 
         [HttpPost]
-        public ActionResult EditAddress([ModelBinder(typeof(AddressBinder))]AddressVM address)
+        public ActionResult Edit(StudentVM studentVM)
         {
-            StudentRepository.SaveAddress(address.StudentId, address.Address);
-            return Edit(address.StudentId);
+            studentVM.Student.Courses = new List<Course>();
+
+            foreach (var id in studentVM.SelectedCourseIds)
+                studentVM.Student.Courses.Add(CourseRepository.Get(id));
+
+            studentVM.Student.Major = MajorRepository.Get(studentVM.Student.Major.MajorId);
+            StudentRepository.Edit(studentVM.Student);
+            StudentRepository.SaveAddress(studentVM.Student.StudentId, studentVM.Student.Address);
+            return RedirectToAction("List");
         }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            return View(StudentRepository.Get(id));
+        }
+
+        [HttpPost]
+        public ActionResult Delete(Student model)
+        {
+            StudentRepository.Delete(model.StudentId);
+            return RedirectToAction("List");
+        }
+
     }
 }

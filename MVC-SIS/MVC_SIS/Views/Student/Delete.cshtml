@@ -1,0 +1,17 @@
+﻿@model Exercises.Models.Data.Student
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete the records for @Model.FirstName @Model.LastName?</h3>
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.StudentId)
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" />   
+            @Html.ActionLink("Back to List", "List", null, new { @class = "btn btn-default" })
+        </div>
+    }
