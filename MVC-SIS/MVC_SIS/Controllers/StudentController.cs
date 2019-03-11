@@ -61,8 +61,9 @@ namespace Exercises.Controllers
             viewModel.SetStateItems(StateRepository.GetAll());
             if (viewModel.Student.Courses != null)
             {
-                viewModel.SelectedCourseIds = (from course in viewModel.Student.Courses
-                                           select course.CourseId).ToList();
+                viewModel.SelectedCourseIds = 
+                    (from course in viewModel.Student.Courses
+                    select course.CourseId).ToList();
             } else
             {
                 viewModel.SelectedCourseIds = new List<int>();

@@ -27,6 +27,10 @@ namespace Exercises.Controllers
         [HttpPost]
         public ActionResult AddMajor(Major major)
         {
+            if (string.IsNullOrWhiteSpace(major.MajorName))
+            {
+                ModelState.AddModelError("MajorName", "Please enter a major name");
+            }
             if (ModelState.IsValid)
             {
                 MajorRepository.Add(major.MajorName);
@@ -45,6 +49,10 @@ namespace Exercises.Controllers
         [HttpPost]
         public ActionResult EditMajor(Major major)
         {
+            if (string.IsNullOrWhiteSpace(major.MajorName))
+            {
+                ModelState.AddModelError("MajorName", "Please enter a major name");
+            }
             if (ModelState.IsValid)
             {
                 MajorRepository.Edit(major);
@@ -84,6 +92,11 @@ namespace Exercises.Controllers
         [HttpPost]
         public ActionResult EditState(State state)
         {
+            if (string.IsNullOrWhiteSpace(state.StateName))
+            {
+                ModelState.AddModelError("StateName", "Please enter a state name");
+            }
+
             if (ModelState.IsValid)
             {
                 StateRepository.Edit(state);
@@ -101,6 +114,14 @@ namespace Exercises.Controllers
         [HttpPost]
         public ActionResult AddState(State state)
         {
+            if (string.IsNullOrWhiteSpace(state.StateName))
+            {
+                ModelState.AddModelError("StateName", "Please enter a state name");
+            }
+            if (string.IsNullOrWhiteSpace(state.StateAbbreviation))
+            {
+                ModelState.AddModelError("StateAbbreviation", "Please enter a state abbreviation");
+            }
             if (ModelState.IsValid)
             {
                 StateRepository.Add(state);
@@ -140,6 +161,10 @@ namespace Exercises.Controllers
         [HttpPost]
         public ActionResult AddCourse(Course course)
         {
+            if (string.IsNullOrWhiteSpace(course.CourseName))
+            {
+                ModelState.AddModelError("CourseName", "Please enter a course name");
+            }
             if (ModelState.IsValid)
             {
                 CourseRepository.Add(course.CourseName);
@@ -158,6 +183,10 @@ namespace Exercises.Controllers
         [HttpPost]
         public ActionResult EditCourse(Course course)
         {
+            if (string.IsNullOrWhiteSpace(course.CourseName))
+            {
+                ModelState.AddModelError("CourseName", "Please enter a course name");
+            }
             if (ModelState.IsValid)
             {
                 CourseRepository.Edit(course);
