@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DvdLibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Dvds">
+          <Key>
+            <PropertyRef Name="dvdId" />
+          </Key>
+          <Property Name="dvdId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="realeaseYear" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="director" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="rating" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="notes" Type="nvarchar(max)" />
+        </EntityType>
+        <Function Name="CreateDvd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="title" Type="nvarchar" Mode="In" />
+          <Parameter Name="realeaseYear" Type="char" Mode="In" />
+          <Parameter Name="director" Type="nvarchar" Mode="In" />
+          <Parameter Name="rating" Type="varchar" Mode="In" />
+          <Parameter Name="notes" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="DeleteByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetByDirector" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Search" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetByRating" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Search" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="GetByTitle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Search" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetByYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Search" Type="char" Mode="In" />
+        </Function>
+        <Function Name="UpdateByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dvdId" Type="int" Mode="In" />
+          <Parameter Name="title" Type="nvarchar" Mode="In" />
+          <Parameter Name="realeaseYear" Type="char" Mode="In" />
+          <Parameter Name="director" Type="nvarchar" Mode="In" />
+          <Parameter Name="rating" Type="varchar" Mode="In" />
+          <Parameter Name="notes" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="DvdLibraryModelStoreContainer">
+          <EntitySet Name="Dvds" EntityType="Self.Dvds" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DvdLibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Dvd">
+          <Key>
+            <PropertyRef Name="dvdId" />
+          </Key>
+          <Property Name="dvdId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="realeaseYear" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="director" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="rating" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="DvdLibraryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Dvds" EntityType="Self.Dvd" />
+          <FunctionImport Name="CreateDvd">
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="realeaseYear" Mode="In" Type="String" />
+            <Parameter Name="director" Mode="In" Type="String" />
+            <Parameter Name="rating" Mode="In" Type="String" />
+            <Parameter Name="notes" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteByID">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetByDirector" ReturnType="Collection(DvdLibraryModel.GetByDirector_Result)">
+          <Parameter Name="Search" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetByID" ReturnType="Collection(DvdLibraryModel.GetByID_Result)">
+          <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetByRating" ReturnType="Collection(DvdLibraryModel.GetByRating_Result)">
+          <Parameter Name="Search" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetByTitle" ReturnType="Collection(DvdLibraryModel.GetByTitle_Result)">
+          <Parameter Name="Search" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetByYear" ReturnType="Collection(DvdLibraryModel.GetByYear_Result)">
+          <Parameter Name="Search" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateByID">
+            <Parameter Name="dvdId" Mode="In" Type="Int32" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="realeaseYear" Mode="In" Type="String" />
+            <Parameter Name="director" Mode="In" Type="String" />
+            <Parameter Name="rating" Mode="In" Type="String" />
+            <Parameter Name="notes" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAll" ReturnType="Collection(DvdLibraryModel.GetAll_Result)" />
+        </EntityContainer>
+        <ComplexType Name="GetByDirector_Result">
+          <Property Type="Int32" Name="dvdId" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="realeaseYear" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="director" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="rating" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="notes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetByID_Result">
+          <Property Type="Int32" Name="dvdId" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="realeaseYear" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="director" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="rating" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="notes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetByRating_Result">
+          <Property Type="Int32" Name="dvdId" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="realeaseYear" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="director" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="rating" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="notes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetByTitle_Result">
+          <Property Type="Int32" Name="dvdId" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="realeaseYear" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="director" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="rating" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="notes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetByYear_Result">
+          <Property Type="Int32" Name="dvdId" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="realeaseYear" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="director" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="rating" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="notes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAll_Result">
+          <Property Type="Int32" Name="dvdId" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="realeaseYear" Nullable="false" MaxLength="4" />
+          <Property Type="String" Name="director" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="rating" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="notes" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DvdLibraryModelStoreContainer" CdmEntityContainer="DvdLibraryEntities">
+          <EntitySetMapping Name="Dvds">
+            <EntityTypeMapping TypeName="DvdLibraryModel.Dvd">
+              <MappingFragment StoreEntitySet="Dvds">
+                <ScalarProperty Name="dvdId" ColumnName="dvdId" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="realeaseYear" ColumnName="realeaseYear" />
+                <ScalarProperty Name="director" ColumnName="director" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="DvdLibraryModel.Dvd">
+              <ModificationFunctionMapping>
+                <UpdateFunction FunctionName="DvdLibraryModel.Store.UpdateByID">
+                  <ScalarProperty Name="notes" ParameterName="notes" Version="Current" />
+                  <ScalarProperty Name="rating" ParameterName="rating" Version="Current" />
+                  <ScalarProperty Name="director" ParameterName="director" Version="Current" />
+                  <ScalarProperty Name="realeaseYear" ParameterName="realeaseYear" Version="Current" />
+                  <ScalarProperty Name="title" ParameterName="title" Version="Current" />
+                  <ScalarProperty Name="dvdId" ParameterName="dvdId" Version="Current" />
+                </UpdateFunction>
+                <InsertFunction FunctionName="DvdLibraryModel.Store.CreateDvd">
+                  <ScalarProperty Name="notes" ParameterName="notes" />
+                  <ScalarProperty Name="rating" ParameterName="rating" />
+                  <ScalarProperty Name="director" ParameterName="director" />
+                  <ScalarProperty Name="realeaseYear" ParameterName="realeaseYear" />
+                  <ScalarProperty Name="title" ParameterName="title" />
+                  <ResultBinding Name="dvdId" ColumnName="dvdId" />
+                  <ResultBinding Name="title" ColumnName="title" />
+                  <ResultBinding Name="realeaseYear" ColumnName="realeaseYear" />
+                  <ResultBinding Name="director" ColumnName="director" />
+                  <ResultBinding Name="rating" ColumnName="rating" />
+                  <ResultBinding Name="notes" ColumnName="notes" />
+                </InsertFunction>
+                <DeleteFunction FunctionName="DvdLibraryModel.Store.DeleteByID" >
+                  <ScalarProperty Name="dvdId" ParameterName="Id" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CreateDvd" FunctionName="DvdLibraryModel.Store.CreateDvd" />
+          <FunctionImportMapping FunctionImportName="DeleteByID" FunctionName="DvdLibraryModel.Store.DeleteByID" />
+          <FunctionImportMapping FunctionImportName="GetByDirector" FunctionName="DvdLibraryModel.Store.GetByDirector">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DvdLibraryModel.GetByDirector_Result">
+                <ScalarProperty Name="dvdId" ColumnName="dvdId" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="realeaseYear" ColumnName="realeaseYear" />
+                <ScalarProperty Name="director" ColumnName="director" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetByID" FunctionName="DvdLibraryModel.Store.GetByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DvdLibraryModel.GetByID_Result">
+                <ScalarProperty Name="dvdId" ColumnName="dvdId" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="realeaseYear" ColumnName="realeaseYear" />
+                <ScalarProperty Name="director" ColumnName="director" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetByRating" FunctionName="DvdLibraryModel.Store.GetByRating">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DvdLibraryModel.GetByRating_Result">
+                <ScalarProperty Name="dvdId" ColumnName="dvdId" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="realeaseYear" ColumnName="realeaseYear" />
+                <ScalarProperty Name="director" ColumnName="director" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetByTitle" FunctionName="DvdLibraryModel.Store.GetByTitle">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DvdLibraryModel.GetByTitle_Result">
+                <ScalarProperty Name="dvdId" ColumnName="dvdId" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="realeaseYear" ColumnName="realeaseYear" />
+                <ScalarProperty Name="director" ColumnName="director" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetByYear" FunctionName="DvdLibraryModel.Store.GetByYear">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DvdLibraryModel.GetByYear_Result">
+                <ScalarProperty Name="dvdId" ColumnName="dvdId" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="realeaseYear" ColumnName="realeaseYear" />
+                <ScalarProperty Name="director" ColumnName="director" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateByID" FunctionName="DvdLibraryModel.Store.UpdateByID" />
+          <FunctionImportMapping FunctionImportName="GetAll" FunctionName="DvdLibraryModel.Store.GetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DvdLibraryModel.GetAll_Result">
+                <ScalarProperty Name="dvdId" ColumnName="dvdId" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="realeaseYear" ColumnName="realeaseYear" />
+                <ScalarProperty Name="director" ColumnName="director" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
