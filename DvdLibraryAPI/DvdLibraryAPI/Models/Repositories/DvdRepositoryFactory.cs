@@ -17,7 +17,7 @@ namespace DvdLibraryAPI.Models.Repositories
                 case "EntityFramework":
                     return new DvdRepositoryEF();
                 case "ADO":
-                    throw new NotImplementedException();
+                    return new DvdRepositoryADO(ConfigurationManager.ConnectionStrings["DvdLibraryADO"].ConnectionString);
                 default:
                     throw new ConfigurationErrorsException("Invalid Application Mode");
             }

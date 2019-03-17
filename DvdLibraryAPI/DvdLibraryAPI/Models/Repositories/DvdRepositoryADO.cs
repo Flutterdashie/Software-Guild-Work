@@ -20,7 +20,7 @@ namespace DvdLibraryAPI.Models.Repositories
             {
                 conn.ConnectionString = _connStr;
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "UpdateByID";
+                cmd.CommandText = "CreateDvd";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 cmd.Parameters.AddWithValue("@title", dvd.title);
@@ -33,10 +33,24 @@ namespace DvdLibraryAPI.Models.Repositories
                 }
 
                 conn.Open();
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    return InterpretReader(dr).FirstOrDefault();
+                    while (reader.Read())
+                    {
+                        string parsedNotes = (reader["notes"] != DBNull.Value) ? reader["notes"].ToString() : null;
+                        return new Dvd
+                        {
+                            dvdId = (int)reader["dvdId"],
+                            title = reader["title"].ToString(),
+                            rating = reader["rating"].ToString(),
+                            realeaseYear = reader["realeaseYear"].ToString(),
+                            director = reader["director"].ToString(),
+                            notes = parsedNotes
+                        };
+                    }
                 }
+
+                return new Dvd();
             }
         }
 
@@ -57,7 +71,6 @@ namespace DvdLibraryAPI.Models.Repositories
 
         public Dvd Read(int id)
         {
-            //TODO: Ask Elijah/Amir/Corbin/Somebody about how efficient this is because I THINK this makes it only evaluate the first step of the query (which is all it can evaluate anyway) so I'm proud of it
             using (SqlConnection conn = new SqlConnection())
             {
                 conn.ConnectionString = _connStr;
@@ -67,10 +80,24 @@ namespace DvdLibraryAPI.Models.Repositories
                 cmd.Connection = conn;
                 cmd.Parameters.AddWithValue("@Id", id);
                 conn.Open();
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    return InterpretReader(dr).FirstOrDefault();
+                    while (reader.Read())
+                    {
+                        string parsedNotes = (reader["notes"] != DBNull.Value) ? reader["notes"].ToString() : null;
+                        return new Dvd
+                        {
+                            dvdId = (int)reader["dvdId"],
+                            title = reader["title"].ToString(),
+                            rating = reader["rating"].ToString(),
+                            realeaseYear = reader["realeaseYear"].ToString(),
+                            director = reader["director"].ToString(),
+                            notes = parsedNotes
+                        };
+                    }
                 }
+
+                return new Dvd();
             }
         }
 
@@ -84,10 +111,24 @@ namespace DvdLibraryAPI.Models.Repositories
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = conn;
                 conn.Open();
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    return InterpretReader(dr);
+                    while (reader.Read())
+                    {
+                        string parsedNotes = (reader["notes"] != DBNull.Value) ? reader["notes"].ToString() : null;
+                        yield return new Dvd
+                        {
+                            dvdId = (int)reader["dvdId"],
+                            title = reader["title"].ToString(),
+                            rating = reader["rating"].ToString(),
+                            realeaseYear = reader["realeaseYear"].ToString(),
+                            director = reader["director"].ToString(),
+                            notes = parsedNotes
+                        };
+                    }
                 }
+
+                yield break;
             }
         }
 
@@ -102,10 +143,24 @@ namespace DvdLibraryAPI.Models.Repositories
                 cmd.Parameters.AddWithValue("@Search", director);
                 cmd.Connection = conn;
                 conn.Open();
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    return InterpretReader(dr);
+                    while (reader.Read())
+                    {
+                        string parsedNotes = (reader["notes"] != DBNull.Value) ? reader["notes"].ToString() : null;
+                        yield return new Dvd
+                        {
+                            dvdId = (int)reader["dvdId"],
+                            title = reader["title"].ToString(),
+                            rating = reader["rating"].ToString(),
+                            realeaseYear = reader["realeaseYear"].ToString(),
+                            director = reader["director"].ToString(),
+                            notes = parsedNotes
+                        };
+                    }
                 }
+
+                yield break;
             }
         }
 
@@ -120,10 +175,24 @@ namespace DvdLibraryAPI.Models.Repositories
                 cmd.Parameters.AddWithValue("@Search", rating);
                 cmd.Connection = conn;
                 conn.Open();
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    return InterpretReader(dr);
+                    while (reader.Read())
+                    {
+                        string parsedNotes = (reader["notes"] != DBNull.Value) ? reader["notes"].ToString() : null;
+                        yield return new Dvd
+                        {
+                            dvdId = (int)reader["dvdId"],
+                            title = reader["title"].ToString(),
+                            rating = reader["rating"].ToString(),
+                            realeaseYear = reader["realeaseYear"].ToString(),
+                            director = reader["director"].ToString(),
+                            notes = parsedNotes
+                        };
+                    }
                 }
+
+                yield break;
             }
         }
 
@@ -138,10 +207,24 @@ namespace DvdLibraryAPI.Models.Repositories
                 cmd.Parameters.AddWithValue("@Search", title);
                 cmd.Connection = conn;
                 conn.Open();
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    return InterpretReader(dr);
+                    while (reader.Read())
+                    {
+                        string parsedNotes = (reader["notes"] != DBNull.Value) ? reader["notes"].ToString() : null;
+                        yield return new Dvd
+                        {
+                            dvdId = (int)reader["dvdId"],
+                            title = reader["title"].ToString(),
+                            rating = reader["rating"].ToString(),
+                            realeaseYear = reader["realeaseYear"].ToString(),
+                            director = reader["director"].ToString(),
+                            notes = parsedNotes
+                        };
+                    }
                 }
+
+                yield break;
             }
         }
 
@@ -156,10 +239,24 @@ namespace DvdLibraryAPI.Models.Repositories
                 cmd.Parameters.AddWithValue("@Search", year);
                 cmd.Connection = conn;
                 conn.Open();
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    return InterpretReader(dr);
+                    while (reader.Read())
+                    {
+                        string parsedNotes = (reader["notes"] != DBNull.Value) ? reader["notes"].ToString() : null;
+                        yield return new Dvd
+                        {
+                            dvdId = (int)reader["dvdId"],
+                            title = reader["title"].ToString(),
+                            rating = reader["rating"].ToString(),
+                            realeaseYear = reader["realeaseYear"].ToString(),
+                            director = reader["director"].ToString(),
+                            notes = parsedNotes
+                        };
+                    }
                 }
+
+                yield break;
             }
         }
 
@@ -177,7 +274,7 @@ namespace DvdLibraryAPI.Models.Repositories
                 cmd.Parameters.AddWithValue("@realeaseYear", dvd.realeaseYear);
                 cmd.Parameters.AddWithValue("@director", dvd.director);
                 cmd.Parameters.AddWithValue("@rating", dvd.rating);
-                if(dvd.notes != null)
+                if (dvd.notes != null)
                 {
                     cmd.Parameters.AddWithValue("@notes", dvd.notes);
                 }
@@ -187,22 +284,26 @@ namespace DvdLibraryAPI.Models.Repositories
             }
         }
 
-        private static IEnumerable<Dvd> InterpretReader(SqlDataReader reader)
-        {
-            while(reader.Read())
-            {
-                string parsedNotes = (reader["notes"] != DBNull.Value) ? reader["notes"].ToString() : null;
-                yield return new Dvd
-                {
-                    dvdId = (int)reader["dvdId"],
-                    title = reader["title"].ToString(),
-                    rating = reader["rating"].ToString(),
-                    realeaseYear = reader["realeaseYear"].ToString(),
-                    director = reader["director"].ToString(),
-                    notes = parsedNotes
-                };
-            }
-            yield break;
-        }
+        //private static IEnumerable<Dvd> InterpretReader(SqlCommand cmd)
+        //{
+        //    using (SqlDataReader reader = cmd.ExecuteReader())
+        //    {
+        //        while (reader.Read())
+        //        {
+        //            string parsedNotes = (reader["notes"] != DBNull.Value) ? reader["notes"].ToString() : null;
+        //            yield return new Dvd
+        //            {
+        //                dvdId = (int)reader["dvdId"],
+        //                title = reader["title"].ToString(),
+        //                rating = reader["rating"].ToString(),
+        //                realeaseYear = reader["realeaseYear"].ToString(),
+        //                director = reader["director"].ToString(),
+        //                notes = parsedNotes
+        //            };
+        //        }
+        //    }
+
+        //    yield break;
+        //}
     }
 }
