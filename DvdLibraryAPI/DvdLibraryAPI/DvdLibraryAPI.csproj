@@ -147,8 +147,10 @@
     <Compile Include="Models\GetByYear_Result.cs">
       <DependentUpon>Dvd.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Repositories\DvdRepositoryADO.cs" />
     <Compile Include="Models\Repositories\DvdRepositoryEF.cs" />
     <Compile Include="Models\Repositories\DvdRepositoryFactory.cs" />
+    <Compile Include="Models\Repositories\DvdRepositoryMock.cs" />
     <Compile Include="Models\Repositories\IDvdRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace DvdLibraryAPI
 {
@@ -10,7 +11,8 @@ namespace DvdLibraryAPI
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-
+            var corsSettings = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(corsSettings);
             // Web API routes
             config.MapHttpAttributeRoutes();
 

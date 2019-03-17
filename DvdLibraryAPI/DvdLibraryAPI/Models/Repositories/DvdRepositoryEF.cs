@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -15,7 +16,9 @@ namespace DvdLibraryAPI.Models.Repositories
 
         public Dvd Create(Dvd dvd)
         {
-            throw new NotImplementedException();
+            _database.Dvds.Add(dvd);
+            _database.SaveChanges();
+            return dvd;
         }
 
         public void Delete(int id)
@@ -62,7 +65,8 @@ namespace DvdLibraryAPI.Models.Repositories
 
         public void Update(Dvd dvd)
         {
-            _database.Entry
+            _database.Entry(dvd).State = EntityState.Modified;
+            _database.SaveChanges();
         }
     }
 }

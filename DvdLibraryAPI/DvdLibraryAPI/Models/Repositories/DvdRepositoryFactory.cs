@@ -13,7 +13,7 @@ namespace DvdLibraryAPI.Models.Repositories
             switch(ConfigurationManager.AppSettings.Get("Mode"))
             {
                 case "SampleData":
-                    throw new NotImplementedException();
+                    return new DvdRepositoryMock();
                 case "EntityFramework":
                     return new DvdRepositoryEF();
                 case "ADO":
