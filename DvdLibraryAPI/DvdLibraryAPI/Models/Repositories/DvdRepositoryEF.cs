@@ -50,7 +50,7 @@ namespace DvdLibraryAPI.Models.Repositories
 
         public IEnumerable<Dvd> ReadByRating(string rating)
         {
-            return _database.Dvds.Where(d => string.Equals(d.rating,rating,StringComparison.CurrentCultureIgnoreCase));
+            return _database.Dvds.Where(d => d.rating.ToLower() == rating.ToLower());
         }
 
         public IEnumerable<Dvd> ReadByTitle(string title)
