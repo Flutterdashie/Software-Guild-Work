@@ -170,34 +170,6 @@
                 <ScalarProperty Name="notes" ColumnName="notes" />
               </MappingFragment>
             </EntityTypeMapping>
-            <EntityTypeMapping TypeName="DvdLibraryModel.Dvd">
-              <ModificationFunctionMapping>
-                <UpdateFunction FunctionName="DvdLibraryModel.Store.UpdateByID">
-                  <ScalarProperty Name="notes" ParameterName="notes" Version="Current" />
-                  <ScalarProperty Name="rating" ParameterName="rating" Version="Current" />
-                  <ScalarProperty Name="director" ParameterName="director" Version="Current" />
-                  <ScalarProperty Name="realeaseYear" ParameterName="realeaseYear" Version="Current" />
-                  <ScalarProperty Name="title" ParameterName="title" Version="Current" />
-                  <ScalarProperty Name="dvdId" ParameterName="dvdId" Version="Current" />
-                </UpdateFunction>
-                <InsertFunction FunctionName="DvdLibraryModel.Store.CreateDvd">
-                  <ScalarProperty Name="notes" ParameterName="notes" />
-                  <ScalarProperty Name="rating" ParameterName="rating" />
-                  <ScalarProperty Name="director" ParameterName="director" />
-                  <ScalarProperty Name="realeaseYear" ParameterName="realeaseYear" />
-                  <ScalarProperty Name="title" ParameterName="title" />
-                  <ResultBinding Name="dvdId" ColumnName="dvdId" />
-                  <ResultBinding Name="title" ColumnName="title" />
-                  <ResultBinding Name="realeaseYear" ColumnName="realeaseYear" />
-                  <ResultBinding Name="director" ColumnName="director" />
-                  <ResultBinding Name="rating" ColumnName="rating" />
-                  <ResultBinding Name="notes" ColumnName="notes" />
-                </InsertFunction>
-                <DeleteFunction FunctionName="DvdLibraryModel.Store.DeleteByID" >
-                  <ScalarProperty Name="dvdId" ParameterName="Id" />
-                </DeleteFunction>
-              </ModificationFunctionMapping>
-            </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="CreateDvd" FunctionName="DvdLibraryModel.Store.CreateDvd" />
           <FunctionImportMapping FunctionImportName="DeleteByID" FunctionName="DvdLibraryModel.Store.DeleteByID" />
