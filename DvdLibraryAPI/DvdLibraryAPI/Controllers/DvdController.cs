@@ -1,5 +1,6 @@
 ﻿using DvdLibraryAPI.Models;
 using DvdLibraryAPI.Models.Repositories;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,5 +91,14 @@ namespace DvdLibraryAPI.Controllers
             }
             return BadRequest("Why would you do this? Now I am very sad.");
         }
+
+        [Route("jsontest")]
+        [AcceptVerbs("POST")]
+        public IHttpActionResult JsonTest(JObject response)
+        {
+            
+            return Ok();
+        }
+
     }
 }
