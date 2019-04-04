@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+    <div class="carousel slide" id="bigBanner" data-ride="carousel">
+        <div class="carousel-inner text-center align-content-center" style="height: 150px;" id="bigDisplay">
+            <div class="carousel-item active">hi</div>
+            <div class="carousel-item">there</div>
+        </div>
+    </div>
+    
+
+<hr/>
+<h3>Featured Vehicles</h3>
+<div class="row" id="featuredVehicles">
+
+</div>
+
+
+@section scripts {
+    <script type="text/javascript">
+        function PopulateSpecials() {
+            $.ajax({
+                type: 'GET',
+                url: '/api/Home/Specials',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                success: function (data) {
+                    $('#bigDisplay').empty();
+                    $('#bigDisplay').append('<div class="carousel-item active">Hi welcome to cars buying place</div>');
+                    $.each(data,
+                        function (index, item) {
+                            var panel = '<div class="carousel-item"><h1>'+ item.Title +'</h1><h3>' + item.Description + '</h3></div>';
+                            $('#bigDisplay').append(panel);
+                        });
+                },
+                error: function (jqXHR) {
+                    alert('the specials thingy broke and said: ' + jqXHR.responseText);
+                }
+            });
+        }
+        function PopulateFeatured() {
+            $.ajax({
+                type: 'GET',
+                url: '/api/Home/Index',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                success: function (data) {
+                    $('#featuredVehicles').empty();
+                    $.each(data,
+                        function (index, item) {
+                            var panel = '<div class="col-3 badge"><img src="'+ item.ImgPath + '"/><h3>' + item.MakeModelYear + '</h3><h4>' + item.Price + '</h4></div>';
+                            $('#featuredVehicles').append(panel);
+                        });
+                    PopulateSpecials();
+                },
+                error: function (jqXHR) {
+                    alert('the featured thingy broke and said: ' + jqXHR.responseText);
+                    PopulateSpecials();
+                }
+            });
+        }
+
+        $(document).ready(PopulateFeatured());
+        
+
+
+
+    </script>
+}

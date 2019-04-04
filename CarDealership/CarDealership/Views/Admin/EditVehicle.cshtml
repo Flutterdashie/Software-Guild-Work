@@ -1,0 +1,254 @@
+﻿@model int
+
+@{
+    ViewBag.Title = "Edit Vehicle";
+}
+
+<h2>Edit Vehicle</h2>
+
+<form id="editCar">
+    <div class="row">
+        <input type="hidden" id="carID"/>
+        <div class="col-6 form-group">
+            <span id="carMakeBox"></span>
+            <label for="carMake">Make</label>
+            <select class="form-control" id="carMake" onchange="UpdateModels()" required></select>
+        </div>
+
+        <div class="col-6 form-group">
+            <span id="carModelBox"></span>
+            <label for="carModel">Model</label>
+            <select class="form-control" id="carModel" required>
+                <option value="-2" disabled selected>Model</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 form-group">
+            <label class="form-text">Category</label>
+            <label class="form-check-label" for="isNew">New</label>
+            <input class="form-check-inline" type="checkbox" id="isNew" />
+        </div>
+        <div class="col-6 form-group">
+            <label for="carBody">Body Style</label>
+            <select class="form-control" id="carBody" required>
+                <option value="cheater!" disabled>Body</option>
+                <option value="Car">Car</option>
+                <option value="SUV">SUV</option>
+                <option value="Truck">Truck</option>
+                <option value="Van">Van</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6 form-group">
+            <label for="carYear">Year</label>
+            <input class="form-control" type="text" id="carYear" pattern="(\d){4}" required />
+        </div>
+        <div class="col-6 form-group">
+            <label for="carTrans">Transmission</label>
+            <select class="form-control" id="carTrans" required>
+                <option value="Automatic" selected>Automatic</option>
+                <option value="Manual">Manual</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6 form-group">
+            <label for="carColor">Color</label>
+            <select class="form-control" id="carColor" required>
+                <option value="Black">Black</option>
+                <option value="Silver">Silver</option>
+                <option value="Blue">Blue</option>
+                <option value="Red">Red</option>
+                <option value="White">White</option>
+            </select>
+        </div>
+        <div class="col-6 form-group">
+            <label for="carInterior">Interior</label>
+            <select class="form-control" id="carInterior" required>
+                <option value="Black">Black</option>
+                <option value="Silver">Silver</option>
+                <option value="Blue">Blue</option>
+                <option value="Red">Red</option>
+                <option value="White">White</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-6 form-group">
+            <label for="carMileage">Mileage</label>
+            <input class="form-control" type="number" id="carMileage" required />
+        </div>
+
+        <div class="col-6 form-group">
+            <label for="carVIN">VIN</label>
+            <input class="form-control" type="text" id="carVIN" required />
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-6 form-group">
+            <label for="carMSRP">MSRP</label>
+            <input class="form-control" type="number" id="carMSRP" step="0.01" required />
+        </div>
+
+        <div class="col-6 form-group">
+            <label for="carSalePrice">Sale Price</label>
+            <input class="form-control" type="number" step="0.01" id="carSalePrice" required />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 form-group">
+            <label for="carDesc">Description</label>
+            <textarea id="carDesc" class="form-control"></textarea>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6 form-group">
+            <input id="imageUploadFile" class="form-control-file" type="file" accept=".png,.jpg,.jpeg" name="Image"/>
+        </div>
+        <div class="col-6 form-group">
+            <label class="form-text">Feature This Vehicle</label>
+            <label class="form-check-label" for="isFeatured">Featured</label>
+            <input class="form-check-inline" type="checkbox" id="isFeatured" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 form-group">
+            <button type="submit" class="btn btn-primary form-control-sm">Save</button>
+        </div>
+        <div class="col-6 form-group">
+            <button type="button" class="btn btn-danger form-control-sm" onclick="return confirm('Are you sure?')? DeleteVehicle(@Model) : ''">Delete</button>
+        </div>
+    </div>
+</form>
+
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/MakeModelMenu.js"></script>
+    <script type="text/javascript">
+        function DeleteVehicle(id) {
+            //Delete stuff here
+            $.ajax({
+                type: 'DELETE',
+                url: '/api/admin/DeleteVehicle/' +id,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                success: function(data) {
+                    window.location.href = '/admin/Vehicles';
+                },
+                error: function(jqXHR) {
+                    alert(jqXHR.responseText);
+                }
+            });
+        }
+
+
+        $(document).ready(function() {
+            $('#editCar').on('submit',
+                function(event) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    if ($('#carModel').val() == -2) {
+                        alert('Please fill out the make and model fields properly.');
+                        return;
+                    }
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/api/admin/EditVehicle/' +$('#carID').val(),
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        'dataType': 'json',
+                        data: JSON.stringify({
+                            ID: $('#carID').val(),
+                            VIN: $('#carVIN').val(),
+                            Year: $('#carYear').val(),
+                            Body: $('#carBody').val(),
+                            Transmission: $('#carTrans').val(),
+                            Color: $('#carColor').val(),
+                            Interior: $('#carInterior').val(),
+                            Mileage: $('#carMileage').val(),
+                            MakeID: $('#carMake').val(),
+                            ModelID: $('#carModel').val(),
+                            SalePrice: $('#carSalePrice').val(),
+                            MSRP: $('#carMSRP').val(),
+                            Description: $('#carDesc').val(),
+                            IsFeatured: $('#isFeatured').prop('checked') ? 1 : 0
+                        }),
+                        success: function(data) {
+                            var fileList = $('#imageUploadFile').get(0).files;
+                            if (fileList.length > 0) {
+                                var sendData = new FormData();
+                                sendData.append('Image', fileList[0]);
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/api/admin/images/' + data,
+                                    contentType: false,
+                                    processData: false,
+                                    data: sendData,
+                                    success: function() {
+                                        alert('Image and car edited successfully');
+                                        window.location.href = '/admin/EditVehicle/' + data;
+                                    },
+                                    error: function(jqXHR) {
+                                        alert('Image Upload failed. Note that car is still edited. Message: ' + jqXHR.responseText);
+                                        window.location.href = '/admin/EditVehicle/' + data;
+                                    }
+                                });
+                            }
+                            alert('No image found, car edits successful.');
+                            window.location.href = '/admin/EditVehicle/' + data;
+                        },
+                        error: function(jqXHR) {
+                            alert(jqXHR.responseText);
+                        }
+                    });
+                });
+
+            $.ajax({
+                type: 'GET',
+                url: '/api/admin/EditVehicle/' + @Model,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                success: function (data) {
+                    UpdateMakes();
+                    $('#carID').val(data.ID);
+                    $('#carYear').val(data.Year);
+                    $('#carMakeBox').text(data.Make);
+                    $('#carModelBox').text(data.Model);
+                    $('#carBody').val(data.Body);
+                    $('#carTrans').val(data.Transmission);
+                    $('#carColor').val(data.Color);
+                    $('#carInterior').val(data.Interior);
+                    $('#carMileage').val(data.Mileage);
+                    $('#carVIN').val(data.VIN);
+                    $('#carSalePrice').val(data.SalePrice);
+                    $('#carMSRP').val(data.MSRP);
+                    $('#carDesc').val(data.Description);
+                    $('#isNew').attr('checked', data.IsNew === 1);
+                    $('#isFeatured').attr('checked', data.IsFeatured === 1);
+
+                },
+                error: function (jqXHR) {
+                    $('#carModel').attr('disabled', true);
+                    $('#carMake').attr('disabled', true);
+                    alert('the car getter broke and said: ' + jqXHR.responseText);
+                }
+            });
+        });
+    </script>
+}

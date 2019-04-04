@@ -1,0 +1,181 @@
+﻿
+@{
+    ViewBag.Title = "Add Vehicle";
+}
+
+<h2>Add Vehicle</h2>
+
+<form id="newCar">
+    <div class="row">
+
+        <div class="col-6 form-group">
+            <label for="carMake">Make</label>
+            <select class="form-control" id="carMake" onchange="UpdateModels()" required></select>
+        </div>
+
+        <div class="col-6 form-group">
+            <label for="carModel">Model</label>
+            <select class="form-control" id="carModel" required>
+                <option value="-2" disabled selected>Model</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 form-group">
+            <label class="form-text">Category</label>
+            <label class="form-check-label" for="isNew">New</label>
+            <input class="form-check-inline" type="checkbox" id="isNew"/>
+        </div>
+        <div class="col-6 form-group">
+            <label for="carBody">Body Style</label>
+            <select class="form-control" id="carBody" required>
+                <option value="cheater!" disabled>Body</option>
+                <option value="Car">Car</option>
+                <option value="SUV">SUV</option>
+                <option value="Truck">Truck</option>
+                <option value="Van">Van</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6 form-group">
+            <label for="carYear">Year</label>
+            <input class="form-control" type="text" id="carYear" pattern="(\d){4}" required />
+        </div>
+        <div class="col-6 form-group">
+            <label for="carTrans">Transmission</label>
+            <select class="form-control" id="carTrans" required>
+                <option value="Automatic" selected>Automatic</option>
+                <option value="Manual">Manual</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6 form-group">
+            <label for="carColor">Color</label>
+            <select class="form-control" id="carColor" required>
+                <option value="Black">Black</option>
+                <option value="Silver">Silver</option>
+                <option value="Blue">Blue</option>
+                <option value="Red">Red</option>
+                <option value="White">White</option>
+            </select>
+        </div>
+        <div class="col-6 form-group">
+            <label for="carInterior">Interior</label>
+            <select class="form-control" id="carInterior" required>
+                <option value="Black">Black</option>
+                <option value="Silver">Silver</option>
+                <option value="Blue">Blue</option>
+                <option value="Red">Red</option>
+                <option value="White">White</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-6 form-group">
+            <label for="carMileage">Mileage</label>
+            <input class="form-control" type="number" id="carMileage" required />
+        </div>
+
+        <div class="col-6 form-group">
+            <label for="carVIN">VIN</label>
+            <input class="form-control" type="text" id="carVIN" required maxlength="17" size="17" />
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-6 form-group">
+            <label for="carMSRP">MSRP</label>
+            <input class="form-control" type="number" id="carMSRP" step="0.01" required />
+        </div>
+
+        <div class="col-6 form-group">
+            <label for="carSalePrice">Sale Price</label>
+            <input class="form-control" type="number" step="0.01" id="carSalePrice" required />
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12 form-group">
+            <label for="carDesc">Description</label>
+            <textarea id="carDesc" class="form-control" required></textarea>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6 form-group">
+            <input id="imageUploadFile" class="form-control-file" type="file" accept=".png,.jpg,.jpeg" name="Image" required/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 form-group">
+            <button type="submit" class="form-control-sm btn btn-primary">Save</button>
+        </div>
+    </div>
+</form>
+
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/MakeModelMenu.js"></script>
+    <script type="text/javascript" >
+        $(document).ready(UpdateMakes());
+
+        $('#newCar').on('submit',
+            function(event) {
+                event.stopPropagation();
+                event.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/admin/AddVehicle/',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    'dataType': 'json',
+                    data: JSON.stringify({
+                        VIN: $('#carVIN').val(),
+                        Year: $('#carYear').val(),
+                        Body: $('#carBody').val(),
+                        Transmission: $('#carTrans').val(),
+                        Color: $('#carColor').val(),
+                        Interior: $('#carInterior').val(),
+                        Mileage: $('#carMileage').val(),
+                        MakeID: $('#carMake').val(),
+                        ModelID: $('#carModel').val(),
+                        SalePrice: $('#carSalePrice').val(),
+                        MSRP: $('#carMSRP').val(),
+                        Description: $('#carDesc').val()
+                    }),
+                    success: function(data) {
+                        var sendData = new FormData();
+                        sendData.append('Image', $('#imageUploadFile').get(0).files[0]);
+                        $.ajax({
+                            type: 'POST',
+                            url: '/api/admin/images/' + data,
+                            contentType: false,
+                            processData: false,
+                            data: sendData,
+                            success: function() {
+                                alert('Image and car created successfully');
+                                window.location.href = '/admin/EditVehicle/' + data;
+                            },
+                            error: function(jqXHR) {
+                                alert('Image Upload failed. Note that car is still created. Message: ' + jqXHR.responseText);
+                                window.location.href = '/admin/EditVehicle/' + data;
+                            }
+                        });
+                        
+                    },
+                    error: function(jqXHR) {
+                        alert('Car could not be created. Message: ' + jqXHR.responseText);
+                    }
+                });
+            });
+
+    </script>
+}

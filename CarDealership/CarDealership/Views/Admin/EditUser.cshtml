@@ -1,0 +1,97 @@
+﻿@model CarDealership.Models.ServiceModels.UserView
+
+@{
+    ViewBag.Title = "Edit User";
+}
+
+<h2>Edit User</h2>
+
+<form id="editUserForm">
+    <input type="text" name="UserID" id="UserID" value="@Model.UserID" disabled/>
+    <div>
+        <div class="form-group">
+            <label for="FirstName">First Name</label>
+            <input type="text" name="FirstName" id="FirstName" required/>
+        </div>
+        <div class="form-group">
+            <label for="LastName">First Name</label>
+            <input type="text" name="LastName" id="LastName" required/>
+        </div>
+        <div class="form-group">
+            <label for="Email">First Name</label>
+            <input type="text" name="Email" id="Email" required />
+        </div>
+        <div class="form-group">
+            <label for="Role">Role</label>
+            <select type="text" name="Role" id="Role" required>
+                <option value="Admin">Admin</option>
+                <option value="Sales">Sales</option>
+                <option value="Disabled">Disabled</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="oldPassword">Old Password</label>
+            <input type="password" name="oldPassword" id="oldPassword"/>
+            <label for="newPassword">New Password</label>
+            <input type="password" name="newPassword" id="newPassword"/>
+        </div>
+
+        <button type="submit">Submit Edits</button>
+    </div>
+</form>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.ajax({
+                type: 'GET',
+                url: '/api/admin/users/' + '@Model.UserID',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                success: function (data) {
+                    $('#FirstName').val(data.FirstName);
+                    $('#LastName').val(data.LastName);
+                    $('#Email').val(data.Email);
+                    $('#Role').val(data.Role);
+                },
+                error: function (jqXHR) {
+                    alert(jqXHR.responseText);
+                }
+            });
+
+
+            $('#editUserForm').on('submit',
+                function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    $.ajax({
+                        type: 'PUT',
+                        url: '/api/admin/users/',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        'dataType': 'json',
+                        data: JSON.stringify({
+                            FirstName: $('#FirstName').val(),
+                            LastName: $('#LastName').val(),
+                            Email: $('#Email').val(),
+                            Role: $('#Role').val(),
+                            UserID: $('#UserID').val(),
+                            OldPassword: $('#oldPassword').val(),
+                            NewPassword: $('#newPassword').val()
+                        }),
+                        success: function() {
+                            alert('Edit succeeded');
+                        },
+                        error: function(jqXHR) {
+                            alert(jqXHR.responseText);
+                        }
+                    });
+                });
+        })
+    </script>
+}
